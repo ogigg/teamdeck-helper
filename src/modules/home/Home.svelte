@@ -10,8 +10,6 @@
   <h1>Home!</h1>
   {#if harvestApiData}
     <Harvest {harvestApiData} />
-    <p>{harvestApiData.accountId}</p>
-    <p>{harvestApiData.token}</p>
   {:else}
     <p>Brak danych do harvesta, ustaw je w <a href="#/settings">ustawieniach</a></p>
   {/if}
