@@ -4,6 +4,7 @@
   import Textfield from '@smui/textfield';
   import Button from '@smui/button';
   import { setContext } from 'svelte';
+
   let form: HarvestApiData = JSON.parse(localStorage.getItem('harvestAPI')) ?? {
     token: '',
     accountId: ''
