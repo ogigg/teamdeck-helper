@@ -1,14 +1,15 @@
 <script lang="ts">
+  import Harvest from '../../components/Harvest.svelte';
+
   import type { HarvestApiData } from './../../models/harvest';
 
-  let harvestApi: HarvestApiData | null = JSON.parse(localStorage.getItem('harvestAPI'));
+  let harvestApiData: HarvestApiData | null = JSON.parse(localStorage.getItem('harvestAPI'));
 </script>
 
 <section>
   <h1>Home!</h1>
-  {#if harvestApi}
-    <p>{harvestApi.accountId}</p>
-    <p>{harvestApi.token}</p>
+  {#if harvestApiData}
+    <Harvest {harvestApiData} />
   {:else}
     <p>Brak danych do harvesta, ustaw je w <a href="#/settings">ustawieniach</a></p>
   {/if}
