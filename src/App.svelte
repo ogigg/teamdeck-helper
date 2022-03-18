@@ -7,8 +7,6 @@
 
 <body>
   <Header />
-  <a href="/" use:link>Home</a>
-  <a href="/settings" use:link>Settings</a>
   <Router {routes} />
 </body>
 
