@@ -5,16 +5,17 @@
   export let name: string;
 </script>
 
-<main>
+<body>
   <Header />
   <a href="/" use:link>Home</a>
   <a href="/settings" use:link>Settings</a>
   <Router {routes} />
-</main>
+</body>
 
 <style lang="scss">
   body {
     padding: 0;
+    margin: 0;
     background-color: #fafafa;
   }
   main {
