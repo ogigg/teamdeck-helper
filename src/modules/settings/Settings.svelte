@@ -18,7 +18,7 @@
 </script>
 
 <section>
-  <h1>Ustawienia!</h1>
+  <h1>Ustawienia</h1>
   <div class="section-wrapper">
     <h3>Harvest</h3>
     <p>
