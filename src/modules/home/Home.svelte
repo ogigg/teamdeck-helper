@@ -7,7 +7,7 @@
 </script>
 
 <section>
-  <h1>Home!</h1>
+  <h1>Generuj skrypt</h1>
   {#if harvestApiData}
     <Harvest {harvestApiData} />
   {:else}
