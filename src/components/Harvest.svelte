@@ -11,13 +11,36 @@
   import dayjs from 'dayjs';
   import IconButton from '@smui/icon-button';
   import type { HarvestApiData } from './../models/harvest';
+  import Flatpickr from 'svelte-flatpickr';
+  import 'flatpickr/dist/flatpickr.css';
 
-  let choices = ['Dziś', 'Wczoraj', 'Ostatnie 2 dni', 'Ostatni tydzień'];
-  let selected = 'Dziś';
+  let choices = ['Dzisiaj', 'Wczoraj', 'Ostatnie 2 dni', 'Ostatni tydzień', 'Własny zakres'];
+  let selected = 'Dzisiaj';
   export let harvestApiData: HarvestApiData;
   let request;
   let harvestDataFetched = false;
   let teamdeckScript = '';
+  let showDatePicker = false;
+
+  let value, formattedValue;
+
+  const options = {
+    enableTime: true,
+    onChange(selectedDates, dateStr) {
+      console.log('flatpickr hook', selectedDates, dateStr);
+    }
+  };
+
+  function handleChange(event) {
+    const [selectedDates, dateStr] = event.detail;
+    console.log({ selectedDates, dateStr });
+  }
+
+  $: {
+    if (selected === 'Własny zakres') {
+      showDatePicker = true;
+    }
+  }
 
   const fetchData = () => {
     harvestDataFetched = true;
@@ -79,6 +102,7 @@
       <Label>{segment}</Label>
     </Segment>
   </SegmentedButton>
+  <Flatpickr {options} bind:value bind:formattedValue on:change={handleChange} name="date" />
   {#if harvestDataFetched}
     {#await request}
       <p>...Pobieram</p>
