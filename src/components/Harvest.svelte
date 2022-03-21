@@ -23,11 +23,13 @@
   let showDatePicker = false;
 
   let value, formattedValue;
-
+  let selectedDates = [];
   const options = {
-    enableTime: true,
-    onChange(selectedDates, dateStr) {
-      console.log('flatpickr hook', selectedDates, dateStr);
+    enableTime: false,
+    mode: 'range',
+
+    onChange(selectedDateRange, dateStr) {
+      selectedDates = selectedDateRange;
     }
   };
 
@@ -39,7 +41,11 @@
   $: {
     if (selected === 'Własny zakres') {
       showDatePicker = true;
+    } else {
+      showDatePicker = false;
     }
+    teamdeckScript = '';
+    harvestDataFetched = false;
   }
 
   const fetchData = () => {
@@ -59,6 +65,10 @@
     }
     if (selected === choices[3]) {
       from = dayjs().subtract(7, 'day').startOf('day').toDate();
+    }
+    if (selected === choices[4]) {
+      from = dayjs(selectedDates[0]).startOf('day').toDate();
+      to = dayjs(selectedDates[1]).startOf('day').toDate();
     }
 
     const params = new URLSearchParams({
@@ -102,7 +112,10 @@
       <Label>{segment}</Label>
     </Segment>
   </SegmentedButton>
-  <Flatpickr {options} bind:value bind:formattedValue on:change={handleChange} name="date" />
+  {#if showDatePicker}
+    <span>Wybierz przedział:</span>
+    <Flatpickr {options} bind:value bind:formattedValue on:change={handleChange} name="date" />
+  {/if}
   {#if harvestDataFetched}
     {#await request}
       <p>...Pobieram</p>

@@ -26,3 +26,22 @@ a {
 a:visited {
   color: color.scale(#40b3ff, $lightness: -35%);
 }
+
+.flatpickr-day {
+  &.startRange, &.endRange {
+      background-color: theme.$primary;
+      border-color: theme.$primary;
+      
+      &:hover {
+        background-color: theme.$primary;
+        border-color: theme.$primary;
+      }
+  }
+}
+
+.flatpickr-input {
+  max-width: 320px;
+  height:36px;
+  border-radius: 6px;
+  border: 1px solid theme.$primary;
+}
