@@ -3,7 +3,7 @@
   import IconButton from '@smui/icon-button';
 </script>
 
-<TopAppBar variant="static" color="secondary">
+<TopAppBar variant="static" color="primary">
   <Row>
     <Section align="end" toolbar>
       <IconButton class="material-icons" aria-label="Home" href="#/">home</IconButton>
