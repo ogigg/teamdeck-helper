@@ -11,13 +11,42 @@
   import dayjs from 'dayjs';
   import IconButton from '@smui/icon-button';
   import type { HarvestApiData } from './../models/harvest';
+  import Flatpickr from 'svelte-flatpickr';
+  import 'flatpickr/dist/flatpickr.css';
 
-  let choices = ['Dziś', 'Wczoraj', 'Ostatnie 2 dni', 'Ostatni tydzień'];
-  let selected = 'Dziś';
+  let choices = ['Dzisiaj', 'Wczoraj', 'Ostatnie 2 dni', 'Ostatni tydzień', 'Własny zakres'];
+  let selected = 'Dzisiaj';
   export let harvestApiData: HarvestApiData;
   let request;
   let harvestDataFetched = false;
   let teamdeckScript = '';
+  let showDatePicker = false;
+
+  let value, formattedValue;
+  let selectedDates = [];
+  const options = {
+    enableTime: false,
+    mode: 'range',
+
+    onChange(selectedDateRange, dateStr) {
+      selectedDates = selectedDateRange;
+    }
+  };
+
+  function handleChange(event) {
+    const [selectedDates, dateStr] = event.detail;
+    console.log({ selectedDates, dateStr });
+  }
+
+  $: {
+    if (selected === 'Własny zakres') {
+      showDatePicker = true;
+    } else {
+      showDatePicker = false;
+    }
+    teamdeckScript = '';
+    harvestDataFetched = false;
+  }
 
   const fetchData = () => {
     harvestDataFetched = true;
@@ -36,6 +65,10 @@
     }
     if (selected === choices[3]) {
       from = dayjs().subtract(7, 'day').startOf('day').toDate();
+    }
+    if (selected === choices[4]) {
+      from = dayjs(selectedDates[0]).startOf('day').toDate();
+      to = dayjs(selectedDates[1]).startOf('day').toDate();
     }
 
     const params = new URLSearchParams({
@@ -79,6 +112,10 @@
       <Label>{segment}</Label>
     </Segment>
   </SegmentedButton>
+  {#if showDatePicker}
+    <span>Wybierz przedział:</span>
+    <Flatpickr {options} bind:value bind:formattedValue on:change={handleChange} name="date" />
+  {/if}
   {#if harvestDataFetched}
     {#await request}
       <p>...Pobieram</p>
