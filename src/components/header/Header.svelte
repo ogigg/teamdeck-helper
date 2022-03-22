@@ -20,4 +20,4 @@
   </Row>
 </TopAppBar>
 
-<HelpDialog {openHelpDialog} />
+<HelpDialog {openHelpDialog} on:close={() => (openHelpDialog = false)} />
