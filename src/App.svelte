@@ -5,6 +5,12 @@
   export let name: string;
 </script>
 
+<svelte:head>
+  <title>Teamdeck helper</title>
+  <meta name="robots" content="noindex nofollow" />
+  <html lang="pl" />
+</svelte:head>
+
 <body>
   <Header />
   <Router {routes} />
