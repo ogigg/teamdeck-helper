@@ -1,11 +1,24 @@
+import { TeamdeckProject, TimeEntry } from "../models/harvest";
+
 export const projectNameToProjectId = (projectName) => {
     if (projectName.toLowerCase().includes("vicodo")) {
-      return "250558";
+      return TeamdeckProject.Vicodo;
     }
     if (projectName.toLowerCase().includes("skyfld")) {
-      return "250349";
+      return TeamdeckProject.Skyfld;
     }
     return "";
+  };
+
+export const teamdeckProjectIdToProjectName = (projectId: TeamdeckProject) => {
+  switch (projectId) {
+    case TeamdeckProject.Skyfld:
+      return 'Skyfld'
+    case TeamdeckProject.Vicodo:
+      return 'Vicodo'
+    default:
+      return projectId;
+  }
   };
   
   export const taskToTagId = (entryType) => {
@@ -27,7 +40,7 @@ export const projectNameToProjectId = (projectName) => {
     return tag;
   };
 
-  export const generateTeamdeckScriptFromHarvest = (res) => {
+  export const generateTeamdeckScriptFromHarvest = (res: TimeEntry[]): string => {
       return `
       const res = ${JSON.stringify(res)};
       res.map(entry => {
