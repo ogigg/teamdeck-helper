@@ -10,9 +10,10 @@
   } from '../helpers/harvest';
   import dayjs from 'dayjs';
   import IconButton from '@smui/icon-button';
-  import type { HarvestApiData } from './../models/harvest';
+  import type { HarvestApiData, TimeEntry } from './../models/harvest';
   import Flatpickr from 'svelte-flatpickr';
   import 'flatpickr/dist/flatpickr.css';
+  import EntryPreview from './entryPreview/EntryPreview.svelte';
 
   let choices = ['Dzisiaj', 'Wczoraj', 'Ostatnie 2 dni', 'Ostatni tydzień', 'Własny zakres'];
   let selected = 'Dzisiaj';
@@ -24,6 +25,7 @@
 
   let value, formattedValue;
   let selectedDates = [];
+
   const options = {
     enableTime: false,
     mode: 'range',
@@ -54,21 +56,21 @@
     let to = new Date();
 
     if (selected === choices[0]) {
-      from = dayjs().startOf('day').toDate();
+      from = dayjs().startOf('day').add(dayjs().utcOffset(), 'minutes').toDate();
     }
     if (selected === choices[1]) {
-      from = dayjs().subtract(2, 'day').startOf('day').toDate();
-      to = dayjs().subtract(1, 'day').startOf('day').toDate();
+      from = dayjs().subtract(2, 'day').startOf('day').add(dayjs().utcOffset(), 'minutes').toDate();
+      to = dayjs().subtract(1, 'day').startOf('day').add(dayjs().utcOffset(), 'minutes').toDate();
     }
     if (selected === choices[2]) {
-      from = dayjs().subtract(2, 'day').startOf('day').toDate();
+      from = dayjs().subtract(2, 'day').startOf('day').add(dayjs().utcOffset(), 'minutes').toDate();
     }
     if (selected === choices[3]) {
-      from = dayjs().subtract(7, 'day').startOf('day').toDate();
+      from = dayjs().subtract(7, 'day').startOf('day').add(dayjs().utcOffset(), 'minutes').toDate();
     }
     if (selected === choices[4]) {
-      from = dayjs(selectedDates[0]).startOf('day').toDate();
-      to = dayjs(selectedDates[1]).startOf('day').toDate();
+      from = dayjs(selectedDates[0]).startOf('day').add(dayjs().utcOffset(), 'minutes').toDate();
+      to = dayjs(selectedDates[1]).startOf('day').add(dayjs().utcOffset(), 'minutes').toDate();
     }
 
     const params = new URLSearchParams({
@@ -93,7 +95,7 @@
           tag: taskToTagId(entry.task.id)
         }))
       )
-      .then(res => {
+      .then((res: TimeEntry[]) => {
         teamdeckScript = generateTeamdeckScriptFromHarvest(res);
         return res;
       });
@@ -121,6 +123,9 @@
       <p>...Pobieram</p>
     {:then timeEntries}
       <p>Pobrano {timeEntries?.length} wpisów</p>
+      {#each timeEntries as timeEntry}
+        <EntryPreview entry={timeEntry} />
+      {/each}
       <div class="textarea-wrapper">
         <Textfield
           style="width: 100%;"
