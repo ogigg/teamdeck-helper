@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { TimeEntry } from './../../models/harvest';
-  import Card, { Content } from '@smui/card';
+  import Card from '@smui/card';
   import { teamdeckProjectIdToProjectName } from '../../helpers/harvest';
 
   export let entry: TimeEntry;
