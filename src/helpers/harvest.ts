@@ -1,4 +1,4 @@
-import { TeamdeckProject, TimeEntry } from "../models/harvest";
+import { HarvestTag, TeamdeckProject, TeamdeckTag, TimeEntry } from "../models/harvest";
 
 export const projectNameToProjectId = (projectName) => {
     if (projectName.toLowerCase().includes("vicodo")) {
@@ -21,21 +21,25 @@ export const teamdeckProjectIdToProjectName = (projectId: TeamdeckProject) => {
   }
   };
   
-  export const taskToTagId = (entryType) => {
-    /*
-          todo dodać tagi
-          150932 - programming tag
-          150935 - meeting
-          199589 - estimations
-          192818 - documentation
-      */
-  
-    let tag = "150932";
+  export const taskToTagId = (entryType: HarvestTag): TeamdeckTag => {
+    let tag = TeamdeckTag.Programming;
     switch (entryType) {
-      case 13582722: // meeting (wg harvesta)
-        tag = "150935"; // meeting - teamdeck
+      case HarvestTag.Meeting:
+        tag = TeamdeckTag.Meeting;
+      case HarvestTag.Programming:
+        tag = TeamdeckTag.Programming;
+      case HarvestTag.Testing:
+        tag = TeamdeckTag.Testing;
+      case HarvestTag.ConceptArchitecture:
+        tag = TeamdeckTag.Research;
+      case HarvestTag.Design:
+        tag = TeamdeckTag.Research;
+      case HarvestTag.Documentation:
+        tag = TeamdeckTag.ProjectDocumentation;
+      case HarvestTag.ProjectManagement:
+        tag = TeamdeckTag.ProjectManagement;
       default:
-        tag = "150932"; // programming - teamdeck
+        tag = TeamdeckTag.Programming;
     }
     return tag;
   };

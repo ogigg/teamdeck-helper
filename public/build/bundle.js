@@ -14682,6 +14682,27 @@ var app = (function () {
         TeamdeckProject["Skyfld"] = "250349";
         TeamdeckProject["Vicodo"] = "250558";
     })(TeamdeckProject || (TeamdeckProject = {}));
+    var TeamdeckTag;
+    (function (TeamdeckTag) {
+        TeamdeckTag["Meeting"] = "150935";
+        TeamdeckTag["Programming"] = "150932";
+        TeamdeckTag["Estimations"] = "199589";
+        TeamdeckTag["Documentation"] = "192818";
+        TeamdeckTag["ProjectManagement"] = "150936";
+        TeamdeckTag["ProjectDocumentation"] = "150934";
+        TeamdeckTag["Testing"] = "150937";
+        TeamdeckTag["Research"] = "152260";
+    })(TeamdeckTag || (TeamdeckTag = {}));
+    var HarvestTag;
+    (function (HarvestTag) {
+        HarvestTag["Testing"] = "13546990";
+        HarvestTag["Meeting"] = "13582722";
+        HarvestTag["Documentation"] = "13546991";
+        HarvestTag["Programming"] = "13538127";
+        HarvestTag["ProjectManagement"] = "13538129";
+        HarvestTag["ConceptArchitecture"] = "17818113";
+        HarvestTag["Design"] = "13538126";
+    })(HarvestTag || (HarvestTag = {}));
 
     const projectNameToProjectId = (projectName) => {
         if (projectName.toLowerCase().includes("vicodo")) {
@@ -14703,19 +14724,24 @@ var app = (function () {
         }
     };
     const taskToTagId = (entryType) => {
-        /*
-              todo dodać tagi
-              150932 - programming tag
-              150935 - meeting
-              199589 - estimations
-              192818 - documentation
-          */
-        let tag = "150932";
+        let tag = TeamdeckTag.Programming;
         switch (entryType) {
-            case 13582722: // meeting (wg harvesta)
-                tag = "150935"; // meeting - teamdeck
+            case HarvestTag.Meeting:
+                tag = TeamdeckTag.Meeting;
+            case HarvestTag.Programming:
+                tag = TeamdeckTag.Programming;
+            case HarvestTag.Testing:
+                tag = TeamdeckTag.Testing;
+            case HarvestTag.ConceptArchitecture:
+                tag = TeamdeckTag.Research;
+            case HarvestTag.Design:
+                tag = TeamdeckTag.Research;
+            case HarvestTag.Documentation:
+                tag = TeamdeckTag.ProjectDocumentation;
+            case HarvestTag.ProjectManagement:
+                tag = TeamdeckTag.ProjectManagement;
             default:
-                tag = "150932"; // programming - teamdeck
+                tag = TeamdeckTag.Programming;
         }
         return tag;
     };
