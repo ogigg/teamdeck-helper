@@ -22,6 +22,7 @@
       <li>Wygeneruj skrypt</li>
       <li>Skopiuj kod</li>
       <li>Wklej do konsoli przeglądarki na stronie teamdecka</li>
+      <li>Odśwież stronę i sprawdź poprawność danych</li>
       <li>Profit</li>
     </ol>
   </Content>
