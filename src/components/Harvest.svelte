@@ -59,8 +59,8 @@
       from = dayjs().startOf('day').add(dayjs().utcOffset(), 'minutes').toDate();
     }
     if (selected === choices[1]) {
-      from = dayjs().subtract(2, 'day').startOf('day').add(dayjs().utcOffset(), 'minutes').toDate();
-      to = dayjs().subtract(1, 'day').startOf('day').add(dayjs().utcOffset(), 'minutes').toDate();
+      from = dayjs().subtract(1, 'day').startOf('day').add(dayjs().utcOffset(), 'minutes').toDate();
+      to = dayjs().subtract(1, 'day').endOf('day').add(dayjs().utcOffset(), 'minutes').toDate();
     }
     if (selected === choices[2]) {
       from = dayjs().subtract(2, 'day').startOf('day').add(dayjs().utcOffset(), 'minutes').toDate();
@@ -70,7 +70,7 @@
     }
     if (selected === choices[4]) {
       from = dayjs(selectedDates[0]).startOf('day').add(dayjs().utcOffset(), 'minutes').toDate();
-      to = dayjs(selectedDates[1]).startOf('day').add(dayjs().utcOffset(), 'minutes').toDate();
+      to = dayjs(selectedDates[1]).endOf('day').add(dayjs().utcOffset(), 'minutes').toDate();
     }
 
     const params = new URLSearchParams({

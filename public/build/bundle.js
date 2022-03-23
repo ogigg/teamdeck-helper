@@ -19364,7 +19364,7 @@ var app = (function () {
     			span.textContent = "Wybierz przedział:";
     			t1 = space();
     			create_component(flatpickr.$$.fragment);
-    			add_location(span, file$6, 99, 4, 3489);
+    			add_location(span, file$6, 99, 4, 3485);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -19500,7 +19500,7 @@ var app = (function () {
     			p = element("p");
     			t = text(t_value);
     			set_style(p, "color", "red");
-    			add_location(p, file$6, 123, 6, 4270);
+    			add_location(p, file$6, 123, 6, 4266);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -19601,9 +19601,9 @@ var app = (function () {
     			create_component(textfield.$$.fragment);
     			t5 = space();
     			create_component(iconbutton.$$.fragment);
-    			add_location(p, file$6, 106, 6, 3728);
+    			add_location(p, file$6, 106, 6, 3724);
     			attr_dev(div, "class", "textarea-wrapper svelte-gh3rf3");
-    			add_location(div, file$6, 110, 6, 3874);
+    			add_location(div, file$6, 110, 6, 3870);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -19798,7 +19798,7 @@ var app = (function () {
     		c: function create() {
     			p = element("p");
     			p.textContent = "...Pobieram";
-    			add_location(p, file$6, 104, 6, 3679);
+    			add_location(p, file$6, 104, 6, 3675);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -19915,9 +19915,9 @@ var app = (function () {
     			if (if_block1) if_block1.c();
     			t4 = space();
     			create_component(button.$$.fragment);
-    			add_location(h3, file$6, 92, 2, 3276);
+    			add_location(h3, file$6, 92, 2, 3272);
     			attr_dev(div, "class", "section-wrapper svelte-gh3rf3");
-    			add_location(div, file$6, 91, 0, 3244);
+    			add_location(div, file$6, 91, 0, 3240);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -20075,8 +20075,8 @@ var app = (function () {
     		}
 
     		if (selected === choices[1]) {
-    			from = dayjs_min().subtract(2, 'day').startOf('day').add(dayjs_min().utcOffset(), 'minutes').toDate();
-    			to = dayjs_min().subtract(1, 'day').startOf('day').add(dayjs_min().utcOffset(), 'minutes').toDate();
+    			from = dayjs_min().subtract(1, 'day').startOf('day').add(dayjs_min().utcOffset(), 'minutes').toDate();
+    			to = dayjs_min().subtract(1, 'day').endOf('day').add(dayjs_min().utcOffset(), 'minutes').toDate();
     		}
 
     		if (selected === choices[2]) {
@@ -20089,7 +20089,7 @@ var app = (function () {
 
     		if (selected === choices[4]) {
     			from = dayjs_min(selectedDates[0]).startOf('day').add(dayjs_min().utcOffset(), 'minutes').toDate();
-    			to = dayjs_min(selectedDates[1]).startOf('day').add(dayjs_min().utcOffset(), 'minutes').toDate();
+    			to = dayjs_min(selectedDates[1]).endOf('day').add(dayjs_min().utcOffset(), 'minutes').toDate();
     		}
 
     		const params = new URLSearchParams({
