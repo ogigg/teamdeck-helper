@@ -5,14 +5,22 @@
   import Button from '@smui/button';
   import { setContext } from 'svelte';
 
-  let form: HarvestApiData = JSON.parse(localStorage.getItem('harvestAPI')) ?? {
+  let harvestForm: HarvestApiData = JSON.parse(localStorage.getItem('harvestAPI')) ?? {
     token: '',
     accountId: ''
   };
-  setContext('harvestAPI', form);
+  let clockifyForm: HarvestApiData = JSON.parse(localStorage.getItem('ClockifyAPI')) ?? {
+    token: '',
+    accountId: ''
+  };
+  setContext('harvestAPI', harvestForm);
 
-  const onSubmit = () => {
-    localStorage.setItem('harvestAPI', JSON.stringify(form));
+  const onHarvestSubmit = () => {
+    localStorage.setItem('harvestAPI', JSON.stringify(harvestForm));
+    push('/');
+  };
+  const onClockifySubmit = () => {
+    localStorage.setItem('ClockifyAPI', JSON.stringify(clockifyForm));
     push('/');
   };
 </script>
@@ -28,9 +36,24 @@
         target="_blank">https://id.getharvest.com/developers</a
       >
     </p>
-    <form on:submit|preventDefault={onSubmit} class="harvest-form">
-      <Textfield variant="outlined" bind:value={form.token} label="Token" />
-      <Textfield variant="outlined" bind:value={form.accountId} label="Account Id" />
+    <form on:submit|preventDefault={onHarvestSubmit} class="harvest-form">
+      <Textfield variant="outlined" bind:value={harvestForm.token} label="Token" />
+      <Textfield variant="outlined" bind:value={harvestForm.accountId} label="Account Id" />
+      <Button type="submit" variant="raised">Zapisz</Button>
+    </form>
+  </div>
+  <div class="section-wrapper">
+    <h3>Clockify</h3>
+    <p>
+      Klucz API mozesz znaleźć tutaj: <a
+        href="https://app.clockify.me/user/settings"
+        rel="noopener noreferrer"
+        target="_blank">https://app.clockify.me/user/settings</a
+      >
+    </p>
+    <form on:submit|preventDefault={onClockifySubmit} class="harvest-form">
+      <Textfield variant="outlined" bind:value={clockifyForm.token} label="Api Key" />
+      <Textfield variant="outlined" bind:value={clockifyForm.accountId} label="Account Id" />
       <Button type="submit" variant="raised">Zapisz</Button>
     </form>
   </div>
