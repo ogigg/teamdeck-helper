@@ -14,7 +14,7 @@
   import Flatpickr from 'svelte-flatpickr';
   import 'flatpickr/dist/flatpickr.css';
   import EntryPreview from './entryPreview/EntryPreview.svelte';
-  import TeamdeckLogin from './teamdeckLogin/TeamdeckLogin.svelte';
+  import TeamdeckHandler from './teamdeckHandler/TeamdeckHandler.svelte';
 
   let choices = ['Dzisiaj', 'Wczoraj', 'Ostatnie 2 dni', 'Ostatni tydzień', 'Własny zakres'];
   let selected = 'Dzisiaj';
@@ -139,13 +139,13 @@
           >content_copy</IconButton
         >
       </div>
+      <TeamdeckHandler {timeEntries} />
     {:catch error}
       <p style="color: red">{error.message}</p>
     {/await}
   {/if}
 
   <Button variant="raised" on:click={fetchData}>Pobierz dane</Button>
-  <TeamdeckLogin />
 </div>
 
 <style lang="scss">
