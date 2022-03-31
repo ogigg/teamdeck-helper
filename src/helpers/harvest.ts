@@ -87,3 +87,21 @@ export const teamdeckProjectIdToProjectName = (projectId: TeamdeckProject) => {
       })
       `
   }
+
+export const fetchHarvestData = (params, harvestApiData) => fetch('https://api.harvestapp.com/api/v2/time_entries?' + params, {
+  headers: {
+    Authorization: `Bearer ${harvestApiData.token}`,
+    'Harvest-Account-Id': harvestApiData.accountId,
+    'User-Agent': 'Harvest API Example'
+  }
+})
+  .then(res => res.json())
+  .then(res =>
+    res.time_entries.map(entry => ({
+      minutes: Math.round(entry.hours * 60),
+      project: projectNameToProjectId(entry.project.name),
+      name: entry.notes,
+      date: entry.spent_date,
+      tag: taskToTagId(entry.task.id)
+    }))
+  )

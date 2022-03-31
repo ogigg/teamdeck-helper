@@ -14,6 +14,9 @@ export interface TimeEntry {
 export enum TeamdeckProject {
     Skyfld = '250349',
     Vicodo = '250558',
+    Piiink = '251072',
+    Moodup = '252727',
+    Unicomm = '307733',
 }
 
 export enum TeamdeckTag {

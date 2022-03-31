@@ -6,7 +6,8 @@
   import {
     taskToTagId,
     projectNameToProjectId,
-    generateTeamdeckScriptFromHarvest
+    generateTeamdeckScriptFromHarvest,
+    fetchHarvestData
   } from '../helpers/harvest';
   import dayjs from 'dayjs';
   import IconButton from '@smui/icon-button';
@@ -14,11 +15,13 @@
   import Flatpickr from 'svelte-flatpickr';
   import 'flatpickr/dist/flatpickr.css';
   import EntryPreview from './entryPreview/EntryPreview.svelte';
+  import { fetchClockifyData } from '../helpers/clockify';
 
   let choices = ['Dzisiaj', 'Wczoraj', 'Ostatnie 2 dni', 'Ostatni tydzień', 'Własny zakres'];
   let selected = 'Dzisiaj';
   export let harvestApiData: HarvestApiData;
-  let request;
+  let harvestRequest;
+  let clockifyRequest;
   let harvestDataFetched = false;
   let teamdeckScript = '';
   let showDatePicker = false;
@@ -77,30 +80,21 @@
       from: from.toISOString(),
       to: to.toISOString()
     });
+    const paramsClockify = new URLSearchParams({
+      start: from.toISOString(),
+      end: to.toISOString()
+    });
 
-    request = fetch('https://api.harvestapp.com/api/v2/time_entries?' + params, {
-      headers: {
-        Authorization: `Bearer ${harvestApiData.token}`,
-        'Harvest-Account-Id': harvestApiData.accountId,
-        'User-Agent': 'Harvest API Example'
-      }
-    })
-      .then(res => res.json())
-      .then(res =>
-        res.time_entries.map(entry => ({
-          minutes: Math.round(entry.hours * 60),
-          project: projectNameToProjectId(entry.project.name),
-          name: entry.notes,
-          date: entry.spent_date,
-          tag: taskToTagId(entry.task.id)
-        }))
-      )
-      .then((res: TimeEntry[]) => {
-        teamdeckScript = generateTeamdeckScriptFromHarvest(res);
-        return res;
-      });
+    // harvestRequest = fetchHarvestData(params, harvestApiData).then((res: TimeEntry[]) => {
+    //   teamdeckScript = generateTeamdeckScriptFromHarvest(res);
+    //   return res;
+    // });
+
+    harvestRequest = fetchClockifyData(paramsClockify).then((res: TimeEntry[]) => {
+      teamdeckScript = generateTeamdeckScriptFromHarvest(res);
+      return res;
+    });
   };
-
   const copyToClipboard = () => {
     console.log('kopiuj');
     navigator.clipboard.writeText(teamdeckScript);
@@ -119,7 +113,7 @@
     <Flatpickr {options} bind:value bind:formattedValue on:change={handleChange} name="date" />
   {/if}
   {#if harvestDataFetched}
-    {#await request}
+    {#await harvestRequest}
       <p>...Pobieram</p>
     {:then timeEntries}
       <p>Pobrano {timeEntries?.length} wpisów</p>
