@@ -14,6 +14,7 @@
   import Flatpickr from 'svelte-flatpickr';
   import 'flatpickr/dist/flatpickr.css';
   import EntryPreview from './entryPreview/EntryPreview.svelte';
+  import TeamdeckLogin from './teamdeckLogin/TeamdeckLogin.svelte';
 
   let choices = ['Dzisiaj', 'Wczoraj', 'Ostatnie 2 dni', 'Ostatni tydzień', 'Własny zakres'];
   let selected = 'Dzisiaj';
@@ -144,6 +145,7 @@
   {/if}
 
   <Button variant="raised" on:click={fetchData}>Pobierz dane</Button>
+  <TeamdeckLogin />
 </div>
 
 <style lang="scss">
