@@ -11,22 +11,14 @@
     TeamdeckApiData,
     TeamdeckTokenExchangeResponse
   } from '../../models/teamdeck';
+  import HarvestSettings from './HarvestSettings.svelte';
 
-  let form: HarvestApiData = JSON.parse(localStorage.getItem('harvestAPI')) ?? {
-    token: '',
-    accountId: ''
-  };
   let teamdeckForm: TeamdeckApiData = JSON.parse(localStorage.getItem('teamdeckAPI')) ?? {
     googleToken: '',
     accessToken: '',
     refreshToken: ''
   };
-  setContext('harvestAPI', form);
-
-  const onSubmit = () => {
-    localStorage.setItem('harvestAPI', JSON.stringify(form));
-    push('/');
-  };
+  console.log(teamdeckForm);
 
   const onTeamdeckSubmit = () => {
     generateAccessToken().then(res => {
@@ -48,28 +40,22 @@
 
   const googleLogin = () => {
     // TODO 31.03.2022: Uncomment once cors error will be fixed.
-    // fetch(TEAMDECK_API, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify({
-    //     query: `query {
-    //         googleAuthUrl
-    //     }`,
-    //     variables: {}
-    //   })
-    // })
-    //   .then(res => res.json())
-    //   .then((result: GraphQlResponse<GoogleLoginResponse>) =>
-    //     window.open(result.data.googleAuthUrl, '_blank').focus()
-    //   );
-    window
-      .open(
-        'https://accounts.google.com/o/oauth2/v2/auth?client_id=847866067409-r9d7tunol78c4comreo1oukcivtgl7bg.apps.googleusercontent.com&redirect_uri=https://teamdeck-tracker-api-staging.herokuapp.com/google/redirect&scope=https://www.googleapis.com/auth/userinfo.email&response_type=code&access_type=online',
-        '_blank'
-      )
-      .focus();
+    fetch(TEAMDECK_API, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        query: `query {
+            googleAuthUrl
+        }`,
+        variables: {}
+      })
+    })
+      .then(res => res.json())
+      .then((result: GraphQlResponse<GoogleLoginResponse>) =>
+        window.open(result.data.googleAuthUrl, '_blank').focus()
+      );
   };
   const generateAccessToken = (): Promise<GraphQlResponse<TeamdeckTokenExchangeResponse>> => {
     // TODO 31.03.2022: Uncomment once cors error will be fixed.
@@ -95,23 +81,14 @@
 <section>
   <h1>Ustawienia</h1>
   <div class="section-wrapper">
-    <h3>Harvest</h3>
-    <p>
-      Klucz API mozesz znaleźć tutaj: <a
-        href="https://id.getharvest.com/developers"
-        rel="noopener noreferrer"
-        target="_blank">https://id.getharvest.com/developers</a
-      >
-    </p>
-    <form on:submit|preventDefault={onSubmit} class="form">
-      <Textfield variant="outlined" bind:value={form.token} label="Token" />
-      <Textfield variant="outlined" bind:value={form.accountId} label="Account Id" />
-      <Button type="submit" variant="raised">Zapisz</Button>
-    </form>
+    <HarvestSettings />
   </div>
   <div class="section-wrapper">
     <h3>Teamdeck API</h3>
-    <p>Kliknij przycisk poniej a następnie skopiuj wygenerowany token autoryzacyjny</p>
+    <p>
+      Kliknij przycisk poniej, w nowej karcie zaloguj się kontem google moodupowym a następnie
+      skopiuj wygenerowany token autoryzacyjny ponizej
+    </p>
     <Button variant="raised" on:click={googleLogin}>Zaloguj się z googlem</Button>
     <form on:submit|preventDefault={onTeamdeckSubmit} class="form teamdeck-form">
       <Textfield variant="outlined" bind:value={teamdeckForm.googleToken} label="Token" />
