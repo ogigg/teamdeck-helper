@@ -9012,7 +9012,7 @@ var app = (function () {
     			props: {
     				key: "SMUI:textfield:icon:leading",
     				value: true,
-    				$$slots: { default: [create_default_slot_4$3] },
+    				$$slots: { default: [create_default_slot_4$2] },
     				$$scope: { ctx }
     			},
     			$$inline: true
@@ -10033,7 +10033,7 @@ var app = (function () {
     }
 
     // (95:4) <ContextFragment key="SMUI:textfield:icon:leading" value={true}>
-    function create_default_slot_4$3(ctx) {
+    function create_default_slot_4$2(ctx) {
     	let current;
     	const leadingIcon_slot_template = /*#slots*/ ctx[51].leadingIcon;
     	const leadingIcon_slot = create_slot(leadingIcon_slot_template, ctx, /*$$scope*/ ctx[90], get_leadingIcon_slot_context);
@@ -10081,7 +10081,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_4$3.name,
+    		id: create_default_slot_4$2.name,
     		type: "slot",
     		source: "(95:4) <ContextFragment key=\\\"SMUI:textfield:icon:leading\\\" value={true}>",
     		ctx
@@ -17472,49 +17472,6 @@ var app = (function () {
         }
         return tag;
     };
-    const generateTeamdeckScriptFromHarvest = (res) => {
-        return `
-      const res = ${JSON.stringify(res)};
-      res.map(entry => {
-          fetch("https://app.teamdeck.io/api/walls/23765/time-entries", {
-          "headers": {
-              "accept": "application/json, text/plain, */*",
-              "accept-language": "en,de;q=0.9,pl;q=0.8,en-US;q=0.7",
-              "content-type": "application/json;charset=UTF-8",
-              "sec-fetch-dest": "empty",
-              "sec-fetch-mode": "cors",
-              "sec-fetch-site": "same-origin"
-          },
-          "referrer": "https://app.teamdeck.io/organizations/23765/calendar",
-          "referrerPolicy": "strict-origin-when-cross-origin",
-          "body": JSON.stringify( 
-          {
-              "minutes": entry.minutes,
-              "description": entry.name.replace(/"/g, '\\"'),
-              "project_id": [
-                  entry.project
-              ],
-              "resource_id": [
-                  278072
-              ],
-              "intervals": [
-                  {
-                      "start_date": entry.date,
-                      "end_date": entry.date
-                  }
-              ],
-              "weekend_booking": true,
-              "holidays_booking": true,
-              "vacations_booking": true,
-              "tags": [{id: entry.tag, dataType: "tag"}]
-          }),
-          "method": "POST",
-          "mode": "cors",
-          "credentials": "include"
-          });
-      })
-      `;
-    };
 
     var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -21745,13 +21702,13 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[18] = list[i];
+    	child_ctx[15] = list[i];
     	return child_ctx;
     }
 
-    // (99:6) <Label>
-    function create_default_slot_4$2(ctx) {
-    	let t_value = /*segment*/ ctx[22] + "";
+    // (90:6) <Label>
+    function create_default_slot_3$2(ctx) {
+    	let t_value = /*segment*/ ctx[19] + "";
     	let t;
 
     	const block = {
@@ -21762,7 +21719,7 @@ var app = (function () {
     			insert_dev(target, t, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*segment*/ 4194304 && t_value !== (t_value = /*segment*/ ctx[22] + "")) set_data_dev(t, t_value);
+    			if (dirty & /*segment*/ 524288 && t_value !== (t_value = /*segment*/ ctx[19] + "")) set_data_dev(t, t_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(t);
@@ -21771,23 +21728,23 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_4$2.name,
+    		id: create_default_slot_3$2.name,
     		type: "slot",
-    		source: "(99:6) <Label>",
+    		source: "(90:6) <Label>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (98:4) <Segment {segment}>
-    function create_default_slot_3$2(ctx) {
+    // (89:4) <Segment {segment}>
+    function create_default_slot_2$2(ctx) {
     	let label;
     	let current;
 
     	label = new Label({
     			props: {
-    				$$slots: { default: [create_default_slot_4$2] },
+    				$$slots: { default: [create_default_slot_3$2] },
     				$$scope: { ctx }
     			},
     			$$inline: true
@@ -21804,7 +21761,7 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			const label_changes = {};
 
-    			if (dirty & /*$$scope, segment*/ 12582912) {
+    			if (dirty & /*$$scope, segment*/ 1572864) {
     				label_changes.$$scope = { dirty, ctx };
     			}
 
@@ -21826,24 +21783,24 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_3$2.name,
+    		id: create_default_slot_2$2.name,
     		type: "slot",
-    		source: "(98:4) <Segment {segment}>",
+    		source: "(89:4) <Segment {segment}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (97:2) <SegmentedButton segments={choices} let:segment singleSelect bind:selected>
-    function create_default_slot_2$2(ctx) {
+    // (88:2) <SegmentedButton segments={choices} let:segment singleSelect bind:selected>
+    function create_default_slot_1$2(ctx) {
     	let segment;
     	let current;
 
     	segment = new Segment({
     			props: {
-    				segment: /*segment*/ ctx[22],
-    				$$slots: { default: [create_default_slot_3$2] },
+    				segment: /*segment*/ ctx[19],
+    				$$slots: { default: [create_default_slot_2$2] },
     				$$scope: { ctx }
     			},
     			$$inline: true
@@ -21859,9 +21816,9 @@ var app = (function () {
     		},
     		p: function update(ctx, dirty) {
     			const segment_changes = {};
-    			if (dirty & /*segment*/ 4194304) segment_changes.segment = /*segment*/ ctx[22];
+    			if (dirty & /*segment*/ 524288) segment_changes.segment = /*segment*/ ctx[19];
 
-    			if (dirty & /*$$scope, segment*/ 12582912) {
+    			if (dirty & /*$$scope, segment*/ 1572864) {
     				segment_changes.$$scope = { dirty, ctx };
     			}
 
@@ -21883,16 +21840,16 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_2$2.name,
+    		id: create_default_slot_1$2.name,
     		type: "slot",
-    		source: "(97:2) <SegmentedButton segments={choices} let:segment singleSelect bind:selected>",
+    		source: "(88:2) <SegmentedButton segments={choices} let:segment singleSelect bind:selected>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (102:2) {#if showDatePicker}
+    // (93:2) {#if showDatePicker}
     function create_if_block_1(ctx) {
     	let span;
     	let t1;
@@ -21902,24 +21859,24 @@ var app = (function () {
     	let current;
 
     	function flatpickr_value_binding(value) {
-    		/*flatpickr_value_binding*/ ctx[13](value);
+    		/*flatpickr_value_binding*/ ctx[11](value);
     	}
 
     	function flatpickr_formattedValue_binding(value) {
-    		/*flatpickr_formattedValue_binding*/ ctx[14](value);
+    		/*flatpickr_formattedValue_binding*/ ctx[12](value);
     	}
 
     	let flatpickr_props = {
-    		options: /*options*/ ctx[8],
+    		options: /*options*/ ctx[7],
     		name: "date"
     	};
 
-    	if (/*value*/ ctx[5] !== void 0) {
-    		flatpickr_props.value = /*value*/ ctx[5];
+    	if (/*value*/ ctx[4] !== void 0) {
+    		flatpickr_props.value = /*value*/ ctx[4];
     	}
 
-    	if (/*formattedValue*/ ctx[6] !== void 0) {
-    		flatpickr_props.formattedValue = /*formattedValue*/ ctx[6];
+    	if (/*formattedValue*/ ctx[5] !== void 0) {
+    		flatpickr_props.formattedValue = /*formattedValue*/ ctx[5];
     	}
 
     	flatpickr = new Flatpickr({ props: flatpickr_props, $$inline: true });
@@ -21933,7 +21890,7 @@ var app = (function () {
     			span.textContent = "Wybierz przedział:";
     			t1 = space();
     			create_component(flatpickr.$$.fragment);
-    			add_location(span, file$6, 102, 4, 3638);
+    			add_location(span, file$6, 93, 4, 3290);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -21944,15 +21901,15 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			const flatpickr_changes = {};
 
-    			if (!updating_value && dirty & /*value*/ 32) {
+    			if (!updating_value && dirty & /*value*/ 16) {
     				updating_value = true;
-    				flatpickr_changes.value = /*value*/ ctx[5];
+    				flatpickr_changes.value = /*value*/ ctx[4];
     				add_flush_callback(() => updating_value = false);
     			}
 
-    			if (!updating_formattedValue && dirty & /*formattedValue*/ 64) {
+    			if (!updating_formattedValue && dirty & /*formattedValue*/ 32) {
     				updating_formattedValue = true;
-    				flatpickr_changes.formattedValue = /*formattedValue*/ ctx[6];
+    				flatpickr_changes.formattedValue = /*formattedValue*/ ctx[5];
     				add_flush_callback(() => updating_formattedValue = false);
     			}
 
@@ -21978,14 +21935,14 @@ var app = (function () {
     		block,
     		id: create_if_block_1.name,
     		type: "if",
-    		source: "(102:2) {#if showDatePicker}",
+    		source: "(93:2) {#if showDatePicker}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (106:2) {#if harvestDataFetched}
+    // (97:2) {#if harvestDataFetched}
     function create_if_block$2(ctx) {
     	let await_block_anchor;
     	let promise;
@@ -21999,8 +21956,8 @@ var app = (function () {
     		pending: create_pending_block,
     		then: create_then_block,
     		catch: create_catch_block,
-    		value: 17,
-    		error: 21,
+    		value: 14,
+    		error: 18,
     		blocks: [,,,]
     	};
 
@@ -22051,17 +22008,17 @@ var app = (function () {
     		block,
     		id: create_if_block$2.name,
     		type: "if",
-    		source: "(106:2) {#if harvestDataFetched}",
+    		source: "(97:2) {#if harvestDataFetched}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (127:4) {:catch error}
+    // (106:4) {:catch error}
     function create_catch_block(ctx) {
     	let p;
-    	let t_value = /*error*/ ctx[21].message + "";
+    	let t_value = /*error*/ ctx[18].message + "";
     	let t;
 
     	const block = {
@@ -22069,14 +22026,14 @@ var app = (function () {
     			p = element("p");
     			t = text(t_value);
     			set_style(p, "color", "red");
-    			add_location(p, file$6, 127, 6, 4459);
+    			add_location(p, file$6, 106, 6, 3734);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
     			append_dev(p, t);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*request*/ 2 && t_value !== (t_value = /*error*/ ctx[21].message + "")) set_data_dev(t, t_value);
+    			if (dirty & /*request*/ 2 && t_value !== (t_value = /*error*/ ctx[18].message + "")) set_data_dev(t, t_value);
     		},
     		i: noop,
     		o: noop,
@@ -22089,31 +22046,25 @@ var app = (function () {
     		block,
     		id: create_catch_block.name,
     		type: "catch",
-    		source: "(127:4) {:catch error}",
+    		source: "(106:4) {:catch error}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (109:4) {:then timeEntries}
+    // (100:4) {:then timeEntries}
     function create_then_block(ctx) {
     	let p;
     	let t0;
-    	let t1_value = /*timeEntries*/ ctx[17]?.length + "";
+    	let t1_value = /*timeEntries*/ ctx[14]?.length + "";
     	let t1;
     	let t2;
     	let t3;
     	let t4;
-    	let div;
-    	let textfield;
-    	let updating_value;
-    	let t5;
-    	let iconbutton;
-    	let t6;
     	let teamdeckhandler;
     	let current;
-    	let each_value = /*timeEntries*/ ctx[17];
+    	let each_value = /*timeEntries*/ ctx[14];
     	validate_each_argument(each_value);
     	let each_blocks = [];
 
@@ -22125,38 +22076,8 @@ var app = (function () {
     		each_blocks[i] = null;
     	});
 
-    	function textfield_value_binding(value) {
-    		/*textfield_value_binding*/ ctx[15](value);
-    	}
-
-    	let textfield_props = {
-    		style: "width: 100%;",
-    		textarea: true,
-    		variant: "outlined",
-    		label: "Skrypt do teamdecka"
-    	};
-
-    	if (/*teamdeckScript*/ ctx[3] !== void 0) {
-    		textfield_props.value = /*teamdeckScript*/ ctx[3];
-    	}
-
-    	textfield = new Textfield({ props: textfield_props, $$inline: true });
-    	binding_callbacks.push(() => bind(textfield, 'value', textfield_value_binding));
-
-    	iconbutton = new IconButton({
-    			props: {
-    				class: "material-icons",
-    				"aria-label": "Copy content",
-    				$$slots: { default: [create_default_slot_1$2] },
-    				$$scope: { ctx }
-    			},
-    			$$inline: true
-    		});
-
-    	iconbutton.$on("click", /*copyToClipboard*/ ctx[10]);
-
     	teamdeckhandler = new TeamdeckHandler({
-    			props: { timeEntries: /*timeEntries*/ ctx[17] },
+    			props: { timeEntries: /*timeEntries*/ ctx[14] },
     			$$inline: true
     		});
 
@@ -22173,15 +22094,8 @@ var app = (function () {
     			}
 
     			t4 = space();
-    			div = element("div");
-    			create_component(textfield.$$.fragment);
-    			t5 = space();
-    			create_component(iconbutton.$$.fragment);
-    			t6 = space();
     			create_component(teamdeckhandler.$$.fragment);
-    			add_location(p, file$6, 109, 6, 3877);
-    			attr_dev(div, "class", "textarea-wrapper svelte-gh3rf3");
-    			add_location(div, file$6, 113, 6, 4023);
+    			add_location(p, file$6, 100, 6, 3529);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -22195,19 +22109,14 @@ var app = (function () {
     			}
 
     			insert_dev(target, t4, anchor);
-    			insert_dev(target, div, anchor);
-    			mount_component(textfield, div, null);
-    			append_dev(div, t5);
-    			mount_component(iconbutton, div, null);
-    			insert_dev(target, t6, anchor);
     			mount_component(teamdeckhandler, target, anchor);
     			current = true;
     		},
     		p: function update(ctx, dirty) {
-    			if ((!current || dirty & /*request*/ 2) && t1_value !== (t1_value = /*timeEntries*/ ctx[17]?.length + "")) set_data_dev(t1, t1_value);
+    			if ((!current || dirty & /*request*/ 2) && t1_value !== (t1_value = /*timeEntries*/ ctx[14]?.length + "")) set_data_dev(t1, t1_value);
 
     			if (dirty & /*request*/ 2) {
-    				each_value = /*timeEntries*/ ctx[17];
+    				each_value = /*timeEntries*/ ctx[14];
     				validate_each_argument(each_value);
     				let i;
 
@@ -22234,24 +22143,8 @@ var app = (function () {
     				check_outros();
     			}
 
-    			const textfield_changes = {};
-
-    			if (!updating_value && dirty & /*teamdeckScript*/ 8) {
-    				updating_value = true;
-    				textfield_changes.value = /*teamdeckScript*/ ctx[3];
-    				add_flush_callback(() => updating_value = false);
-    			}
-
-    			textfield.$set(textfield_changes);
-    			const iconbutton_changes = {};
-
-    			if (dirty & /*$$scope*/ 8388608) {
-    				iconbutton_changes.$$scope = { dirty, ctx };
-    			}
-
-    			iconbutton.$set(iconbutton_changes);
     			const teamdeckhandler_changes = {};
-    			if (dirty & /*request*/ 2) teamdeckhandler_changes.timeEntries = /*timeEntries*/ ctx[17];
+    			if (dirty & /*request*/ 2) teamdeckhandler_changes.timeEntries = /*timeEntries*/ ctx[14];
     			teamdeckhandler.$set(teamdeckhandler_changes);
     		},
     		i: function intro(local) {
@@ -22261,8 +22154,6 @@ var app = (function () {
     				transition_in(each_blocks[i]);
     			}
 
-    			transition_in(textfield.$$.fragment, local);
-    			transition_in(iconbutton.$$.fragment, local);
     			transition_in(teamdeckhandler.$$.fragment, local);
     			current = true;
     		},
@@ -22273,8 +22164,6 @@ var app = (function () {
     				transition_out(each_blocks[i]);
     			}
 
-    			transition_out(textfield.$$.fragment, local);
-    			transition_out(iconbutton.$$.fragment, local);
     			transition_out(teamdeckhandler.$$.fragment, local);
     			current = false;
     		},
@@ -22283,10 +22172,6 @@ var app = (function () {
     			if (detaching) detach_dev(t3);
     			destroy_each(each_blocks, detaching);
     			if (detaching) detach_dev(t4);
-    			if (detaching) detach_dev(div);
-    			destroy_component(textfield);
-    			destroy_component(iconbutton);
-    			if (detaching) detach_dev(t6);
     			destroy_component(teamdeckhandler, detaching);
     		}
     	};
@@ -22295,20 +22180,20 @@ var app = (function () {
     		block,
     		id: create_then_block.name,
     		type: "then",
-    		source: "(109:4) {:then timeEntries}",
+    		source: "(100:4) {:then timeEntries}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (111:6) {#each timeEntries as timeEntry}
+    // (102:6) {#each timeEntries as timeEntry}
     function create_each_block(ctx) {
     	let entrypreview;
     	let current;
 
     	entrypreview = new EntryPreview({
-    			props: { entry: /*timeEntry*/ ctx[18] },
+    			props: { entry: /*timeEntry*/ ctx[15] },
     			$$inline: true
     		});
 
@@ -22322,7 +22207,7 @@ var app = (function () {
     		},
     		p: function update(ctx, dirty) {
     			const entrypreview_changes = {};
-    			if (dirty & /*request*/ 2) entrypreview_changes.entry = /*timeEntry*/ ctx[18];
+    			if (dirty & /*request*/ 2) entrypreview_changes.entry = /*timeEntry*/ ctx[15];
     			entrypreview.$set(entrypreview_changes);
     		},
     		i: function intro(local) {
@@ -22343,41 +22228,14 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(111:6) {#each timeEntries as timeEntry}",
+    		source: "(102:6) {#each timeEntries as timeEntry}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (122:8) <IconButton class="material-icons" aria-label="Copy content" on:click={copyToClipboard}           >
-    function create_default_slot_1$2(ctx) {
-    	let t;
-
-    	const block = {
-    		c: function create() {
-    			t = text("content_copy");
-    		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, t, anchor);
-    		},
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(t);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_default_slot_1$2.name,
-    		type: "slot",
-    		source: "(122:8) <IconButton class=\\\"material-icons\\\" aria-label=\\\"Copy content\\\" on:click={copyToClipboard}           >",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    // (107:20)        <p>...Pobieram</p>     {:then timeEntries}
+    // (98:20)        <p>...Pobieram</p>     {:then timeEntries}
     function create_pending_block(ctx) {
     	let p;
 
@@ -22385,7 +22243,7 @@ var app = (function () {
     		c: function create() {
     			p = element("p");
     			p.textContent = "...Pobieram";
-    			add_location(p, file$6, 107, 6, 3828);
+    			add_location(p, file$6, 98, 6, 3480);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -22402,14 +22260,14 @@ var app = (function () {
     		block,
     		id: create_pending_block.name,
     		type: "pending",
-    		source: "(107:20)        <p>...Pobieram</p>     {:then timeEntries}",
+    		source: "(98:20)        <p>...Pobieram</p>     {:then timeEntries}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (132:2) <Button variant="raised" on:click={fetchData}>
+    // (111:2) <Button variant="raised" on:click={fetchData}>
     function create_default_slot$2(ctx) {
     	let t;
 
@@ -22429,7 +22287,7 @@ var app = (function () {
     		block,
     		id: create_default_slot$2.name,
     		type: "slot",
-    		source: "(132:2) <Button variant=\\\"raised\\\" on:click={fetchData}>",
+    		source: "(111:2) <Button variant=\\\"raised\\\" on:click={fetchData}>",
     		ctx
     	});
 
@@ -22449,17 +22307,17 @@ var app = (function () {
     	let current;
 
     	function segmentedbutton_selected_binding(value) {
-    		/*segmentedbutton_selected_binding*/ ctx[12](value);
+    		/*segmentedbutton_selected_binding*/ ctx[10](value);
     	}
 
     	let segmentedbutton_props = {
-    		segments: /*choices*/ ctx[7],
+    		segments: /*choices*/ ctx[6],
     		singleSelect: true,
     		$$slots: {
     			default: [
-    				create_default_slot_2$2,
-    				({ segment }) => ({ 22: segment }),
-    				({ segment }) => segment ? 4194304 : 0
+    				create_default_slot_1$2,
+    				({ segment }) => ({ 19: segment }),
+    				({ segment }) => segment ? 524288 : 0
     			]
     		},
     		$$scope: { ctx }
@@ -22475,7 +22333,7 @@ var app = (function () {
     		});
 
     	binding_callbacks.push(() => bind(segmentedbutton, 'selected', segmentedbutton_selected_binding));
-    	let if_block0 = /*showDatePicker*/ ctx[4] && create_if_block_1(ctx);
+    	let if_block0 = /*showDatePicker*/ ctx[3] && create_if_block_1(ctx);
     	let if_block1 = /*harvestDataFetched*/ ctx[2] && create_if_block$2(ctx);
 
     	button = new Button_1({
@@ -22487,7 +22345,7 @@ var app = (function () {
     			$$inline: true
     		});
 
-    	button.$on("click", /*fetchData*/ ctx[9]);
+    	button.$on("click", /*fetchData*/ ctx[8]);
 
     	const block = {
     		c: function create() {
@@ -22502,9 +22360,9 @@ var app = (function () {
     			if (if_block1) if_block1.c();
     			t4 = space();
     			create_component(button.$$.fragment);
-    			add_location(h3, file$6, 95, 2, 3425);
+    			add_location(h3, file$6, 86, 2, 3077);
     			attr_dev(div, "class", "section-wrapper svelte-gh3rf3");
-    			add_location(div, file$6, 94, 0, 3393);
+    			add_location(div, file$6, 85, 0, 3045);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -22525,7 +22383,7 @@ var app = (function () {
     		p: function update(ctx, [dirty]) {
     			const segmentedbutton_changes = {};
 
-    			if (dirty & /*$$scope, segment*/ 12582912) {
+    			if (dirty & /*$$scope, segment*/ 1572864) {
     				segmentedbutton_changes.$$scope = { dirty, ctx };
     			}
 
@@ -22537,11 +22395,11 @@ var app = (function () {
 
     			segmentedbutton.$set(segmentedbutton_changes);
 
-    			if (/*showDatePicker*/ ctx[4]) {
+    			if (/*showDatePicker*/ ctx[3]) {
     				if (if_block0) {
     					if_block0.p(ctx, dirty);
 
-    					if (dirty & /*showDatePicker*/ 16) {
+    					if (dirty & /*showDatePicker*/ 8) {
     						transition_in(if_block0, 1);
     					}
     				} else {
@@ -22585,7 +22443,7 @@ var app = (function () {
 
     			const button_changes = {};
 
-    			if (dirty & /*$$scope*/ 8388608) {
+    			if (dirty & /*$$scope*/ 1048576) {
     				button_changes.$$scope = { dirty, ctx };
     			}
 
@@ -22639,7 +22497,6 @@ var app = (function () {
     	let { harvestApiData } = $$props;
     	let request;
     	let harvestDataFetched = false;
-    	let teamdeckScript = '';
     	let showDatePicker = false;
     	let value, formattedValue;
     	let selectedDates = [];
@@ -22698,14 +22555,8 @@ var app = (function () {
     			date: entry.spent_date,
     			tag: taskToTagId(entry.task.id)
     		}))).then(res => {
-    			$$invalidate(3, teamdeckScript = generateTeamdeckScriptFromHarvest(res));
     			return res;
     		}));
-    	};
-
-    	const copyToClipboard = () => {
-    		console.log('kopiuj');
-    		navigator.clipboard.writeText(teamdeckScript);
     	};
 
     	const writable_props = ['harvestApiData'];
@@ -22721,34 +22572,26 @@ var app = (function () {
 
     	function flatpickr_value_binding(value$1) {
     		value = value$1;
-    		$$invalidate(5, value);
+    		$$invalidate(4, value);
     	}
 
     	function flatpickr_formattedValue_binding(value) {
     		formattedValue = value;
-    		$$invalidate(6, formattedValue);
-    	}
-
-    	function textfield_value_binding(value) {
-    		teamdeckScript = value;
-    		($$invalidate(3, teamdeckScript), $$invalidate(0, selected));
+    		$$invalidate(5, formattedValue);
     	}
 
     	$$self.$$set = $$props => {
-    		if ('harvestApiData' in $$props) $$invalidate(11, harvestApiData = $$props.harvestApiData);
+    		if ('harvestApiData' in $$props) $$invalidate(9, harvestApiData = $$props.harvestApiData);
     	};
 
     	$$self.$capture_state = () => ({
-    		Textfield,
     		Button: Button_1,
     		SegmentedButton,
     		Segment,
     		Label,
     		taskToTagId,
     		projectNameToProjectId,
-    		generateTeamdeckScriptFromHarvest,
     		dayjs: dayjs_min,
-    		IconButton,
     		Flatpickr,
     		EntryPreview,
     		TeamdeckHandler,
@@ -22758,27 +22601,24 @@ var app = (function () {
     		harvestApiData,
     		request,
     		harvestDataFetched,
-    		teamdeckScript,
     		showDatePicker,
     		value,
     		formattedValue,
     		selectedDates,
     		options,
     		handleChange,
-    		fetchData,
-    		copyToClipboard
+    		fetchData
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ('choices' in $$props) $$invalidate(7, choices = $$props.choices);
+    		if ('choices' in $$props) $$invalidate(6, choices = $$props.choices);
     		if ('selected' in $$props) $$invalidate(0, selected = $$props.selected);
-    		if ('harvestApiData' in $$props) $$invalidate(11, harvestApiData = $$props.harvestApiData);
+    		if ('harvestApiData' in $$props) $$invalidate(9, harvestApiData = $$props.harvestApiData);
     		if ('request' in $$props) $$invalidate(1, request = $$props.request);
     		if ('harvestDataFetched' in $$props) $$invalidate(2, harvestDataFetched = $$props.harvestDataFetched);
-    		if ('teamdeckScript' in $$props) $$invalidate(3, teamdeckScript = $$props.teamdeckScript);
-    		if ('showDatePicker' in $$props) $$invalidate(4, showDatePicker = $$props.showDatePicker);
-    		if ('value' in $$props) $$invalidate(5, value = $$props.value);
-    		if ('formattedValue' in $$props) $$invalidate(6, formattedValue = $$props.formattedValue);
+    		if ('showDatePicker' in $$props) $$invalidate(3, showDatePicker = $$props.showDatePicker);
+    		if ('value' in $$props) $$invalidate(4, value = $$props.value);
+    		if ('formattedValue' in $$props) $$invalidate(5, formattedValue = $$props.formattedValue);
     		if ('selectedDates' in $$props) selectedDates = $$props.selectedDates;
     	};
 
@@ -22790,12 +22630,11 @@ var app = (function () {
     		if ($$self.$$.dirty & /*selected*/ 1) {
     			{
     				if (selected === 'Własny zakres') {
-    					$$invalidate(4, showDatePicker = true);
+    					$$invalidate(3, showDatePicker = true);
     				} else {
-    					$$invalidate(4, showDatePicker = false);
+    					$$invalidate(3, showDatePicker = false);
     				}
 
-    				$$invalidate(3, teamdeckScript = '');
     				$$invalidate(2, harvestDataFetched = false);
     			}
     		}
@@ -22805,26 +22644,23 @@ var app = (function () {
     		selected,
     		request,
     		harvestDataFetched,
-    		teamdeckScript,
     		showDatePicker,
     		value,
     		formattedValue,
     		choices,
     		options,
     		fetchData,
-    		copyToClipboard,
     		harvestApiData,
     		segmentedbutton_selected_binding,
     		flatpickr_value_binding,
-    		flatpickr_formattedValue_binding,
-    		textfield_value_binding
+    		flatpickr_formattedValue_binding
     	];
     }
 
     class Harvest extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$5, create_fragment$7, safe_not_equal, { harvestApiData: 11 });
+    		init(this, options, instance$5, create_fragment$7, safe_not_equal, { harvestApiData: 9 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -22836,7 +22672,7 @@ var app = (function () {
     		const { ctx } = this.$$;
     		const props = options.props || {};
 
-    		if (/*harvestApiData*/ ctx[11] === undefined && !('harvestApiData' in props)) {
+    		if (/*harvestApiData*/ ctx[9] === undefined && !('harvestApiData' in props)) {
     			console_1.warn("<Harvest> was created without expected prop 'harvestApiData'");
     		}
     	}
