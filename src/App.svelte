@@ -1,6 +1,7 @@
 <script lang="ts">
   import Router, { link } from 'svelte-spa-router';
   import { routes } from './App.routes';
+  import Footer from './components/footer/Footer.svelte';
   import Header from './components/header/Header.svelte';
   export let name: string;
 </script>
@@ -12,15 +13,32 @@
 </svelte:head>
 
 <body>
-  <Header />
-  <Router {routes} />
+  <div class="wrapper">
+    <Header />
+    <Router {routes} />
+  </div>
+  <div class="footer">
+    <Footer />
+  </div>
 </body>
 
 <style lang="scss">
+  $footer-height: 51px;
   body {
     padding: 0;
     margin: 0;
     background-color: #fafafa;
+    height: 100vh;
+  }
+
+  .wrapper {
+    min-height: calc(100% - $footer-height);
+    margin-bottom: -$footer-height;
+    padding-bottom: $footer-height;
+  }
+
+  .footer {
+    height: $footer-height;
   }
   main {
     text-align: center;

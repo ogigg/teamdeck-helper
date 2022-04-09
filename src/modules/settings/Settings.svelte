@@ -93,6 +93,7 @@
   }
 
   .section-wrapper {
+    margin-top: 1rem;
     -webkit-box-shadow: 0px 0px 25px -16px rgba(0, 0, 0, 1);
     -moz-box-shadow: 0px 0px 25px -16px rgba(0, 0, 0, 1);
     box-shadow: 0px 0px 25px -16px rgba(0, 0, 0, 1);
