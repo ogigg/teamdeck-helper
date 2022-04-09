@@ -9,23 +9,32 @@
     TeamdeckApiData,
     TeamdeckTokenExchangeResponse
   } from '../../models/teamdeck';
-  import HarvestSettings from './HarvestSettings.svelte';
-  import TeamdeckSettings from './TeamdeckSettings.svelte';
+  import CircularProgress from '@smui/circular-progress';
+  import IconButton from '@smui/icon-button';
+  let showGoogleSpinner,
+    showTeamdeckSpinner = false;
 
-  let teamdeckForm: TeamdeckApiData = JSON.parse(localStorage.getItem('teamdeckAPI')) ?? {
-    googleToken: '',
+  const initialForm: TeamdeckApiData = {
+    googleCode: '',
     accessToken: '',
     refreshToken: ''
   };
-  console.log(teamdeckForm);
+  let teamdeckForm: TeamdeckApiData =
+    JSON.parse(localStorage.getItem('teamdeckAPI')) ?? initialForm;
+
+  const removeSettings = () => {
+    localStorage.removeItem('teamdeckAPI');
+    teamdeckForm = initialForm;
+  };
 
   const onTeamdeckSubmit = () => {
     generateAccessToken().then(res => {
+      showTeamdeckSpinner = false;
       if (res?.data?.exchangeAuthorizationCodeForToken) {
         localStorage.setItem(
           'teamdeckAPI',
           JSON.stringify({
-            googleCode: teamdeckForm.googleToken,
+            googleCode: teamdeckForm.googleCode,
             accessToken: res.data.exchangeAuthorizationCodeForToken.accessToken,
             refreshToken: res.data.exchangeAuthorizationCodeForToken.refreshToken
           })
@@ -38,7 +47,7 @@
   };
 
   const googleLogin = () => {
-    // TODO 31.03.2022: Uncomment once cors error will be fixed.
+    showGoogleSpinner = true;
     fetch(TEAMDECK_API, {
       method: 'POST',
       headers: {
@@ -46,18 +55,20 @@
       },
       body: JSON.stringify({
         query: `query {
-            googleAuthUrl
-        }`,
+              googleAuthUrl
+          }`,
         variables: {}
       })
     })
       .then(res => res.json())
       .then((result: GraphQlResponse<GoogleLoginResponse>) =>
         window.open(result.data.googleAuthUrl, '_blank').focus()
-      );
+      )
+      .finally(() => (showGoogleSpinner = false));
   };
+
   const generateAccessToken = (): Promise<GraphQlResponse<TeamdeckTokenExchangeResponse>> => {
-    // TODO 31.03.2022: Uncomment once cors error will be fixed.
+    showTeamdeckSpinner = true;
     return fetch(TEAMDECK_API, {
       method: 'POST',
       headers: {
@@ -65,27 +76,45 @@
       },
       body: JSON.stringify({
         query: `mutation {
-  exchangeAuthorizationCodeForToken(authorizationCode:"${teamdeckForm.googleToken}") {
-    accessToken
-    refreshToken
-    expiresIn
-  }
-}`,
+    exchangeAuthorizationCodeForToken(authorizationCode:"${teamdeckForm.googleCode}") {
+      accessToken
+      refreshToken
+      expiresIn
+    }
+  }`,
         variables: {}
       })
     }).then(res => res.json());
   };
 </script>
 
-<section>
-  <h1>Ustawienia</h1>
-  <div class="section-wrapper">
-    <HarvestSettings />
-  </div>
-  <div class="section-wrapper">
-    <TeamdeckSettings />
-  </div>
-</section>
+<div class="header-container">
+  <h3>Teamdeck API</h3>
+  <IconButton class="material-icons" aria-label="remove-settings" on:click={removeSettings}
+    >delete</IconButton
+  >
+</div>
+<p>
+  Kliknij przycisk poniej, w nowej karcie zaloguj się kontem google moodupowym a następnie skopiuj
+  wygenerowany token autoryzacyjny ponizej
+</p>
+<Button variant="raised" on:click={googleLogin}>
+  {#if showGoogleSpinner}
+    <CircularProgress style="height: 32px; width: 32px;" indeterminate />
+  {:else}
+    Zaloguj się z googlem
+  {/if}
+</Button>
+<form on:submit|preventDefault={onTeamdeckSubmit} class="form teamdeck-form">
+  <Textfield variant="outlined" bind:value={teamdeckForm.googleCode} label="Token" />
+  <Button type="submit" variant="raised"
+    >{#if showTeamdeckSpinner}
+      <CircularProgress style="height: 32px; width: 32px;" indeterminate />
+    {:else}
+      Zapisz
+    {/if}</Button
+  >
+</form>
 
 <style lang="scss">
   section {
@@ -107,5 +136,11 @@
     &.teamdeck-form {
       margin-top: 1.5rem;
     }
+  }
+
+  .header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 </style>

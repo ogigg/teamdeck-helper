@@ -5,3 +5,5 @@ export const harvestData: Writable<HarvestApiData> = writable({
     token: '',
     accountId: ''
 });
+
+export const addToTeamdeck: Writable<boolean> = writable(false);
