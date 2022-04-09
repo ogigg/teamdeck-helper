@@ -15,6 +15,7 @@
   import 'flatpickr/dist/flatpickr.css';
   import EntryPreview from './entryPreview/EntryPreview.svelte';
   import TeamdeckHandler from './teamdeckHandler/TeamdeckHandler.svelte';
+  import { addToTeamdeck } from '../store';
 
   let choices = ['Dzisiaj', 'Wczoraj', 'Ostatnie 2 dni', 'Ostatni tydzień', 'Własny zakres'];
   let selected = 'Dzisiaj';
@@ -52,6 +53,7 @@
   }
 
   const fetchData = () => {
+    addToTeamdeck.update(() => false);
     harvestDataFetched = true;
     let from = new Date();
     let to = new Date();
