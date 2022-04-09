@@ -25725,6 +25725,8 @@ var app = (function () {
     	let li5;
     	let t11;
     	let li6;
+    	let t13;
+    	let li7;
 
     	const block = {
     		c: function create() {
@@ -25733,29 +25735,33 @@ var app = (function () {
     			li0.textContent = "Dodaj klucz API Harvesta";
     			t1 = space();
     			li1 = element("li");
-    			li1.textContent = "Wybierz przedział";
+    			li1.textContent = "Zaloguj się z googlem i dodaj token";
     			t3 = space();
     			li2 = element("li");
-    			li2.textContent = "Wygeneruj skrypt";
+    			li2.textContent = "Wybierz przedział";
     			t5 = space();
     			li3 = element("li");
-    			li3.textContent = "Skopiuj kod";
+    			li3.textContent = "Pobierz dane";
     			t7 = space();
     			li4 = element("li");
-    			li4.textContent = "Wklej do konsoli przeglądarki na stronie teamdecka";
+    			li4.textContent = "Wciśnij przycisk dodaj do teamdecka";
     			t9 = space();
     			li5 = element("li");
-    			li5.textContent = "Odśwież stronę i sprawdź poprawność danych";
+    			li5.textContent = "Poczekaj az wszystko się doda";
     			t11 = space();
     			li6 = element("li");
-    			li6.textContent = "Profit";
+    			li6.textContent = "Przejdź do teamdecka i sprawdź poprawność danych";
+    			t13 = space();
+    			li7 = element("li");
+    			li7.textContent = "Profit";
     			add_location(li0, file$1, 16, 6, 524);
     			add_location(li1, file$1, 17, 6, 564);
-    			add_location(li2, file$1, 18, 6, 597);
-    			add_location(li3, file$1, 19, 6, 629);
-    			add_location(li4, file$1, 20, 6, 656);
-    			add_location(li5, file$1, 21, 6, 722);
-    			add_location(li6, file$1, 22, 6, 780);
+    			add_location(li2, file$1, 18, 6, 615);
+    			add_location(li3, file$1, 19, 6, 648);
+    			add_location(li4, file$1, 20, 6, 676);
+    			add_location(li5, file$1, 21, 6, 727);
+    			add_location(li6, file$1, 22, 6, 772);
+    			add_location(li7, file$1, 23, 6, 836);
     			add_location(ol, file$1, 15, 4, 513);
     		},
     		m: function mount(target, anchor) {
@@ -25773,6 +25779,8 @@ var app = (function () {
     			append_dev(ol, li5);
     			append_dev(ol, t11);
     			append_dev(ol, li6);
+    			append_dev(ol, t13);
+    			append_dev(ol, li7);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(ol);
@@ -25790,7 +25798,7 @@ var app = (function () {
     	return block;
     }
 
-    // (28:6) <Label>
+    // (29:6) <Label>
     function create_default_slot_3$1(ctx) {
     	let t;
 
@@ -25810,14 +25818,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_3$1.name,
     		type: "slot",
-    		source: "(28:6) <Label>",
+    		source: "(29:6) <Label>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (27:4) <Button on:click={() => dispatch('close')}>
+    // (28:4) <Button on:click={() => dispatch('close')}>
     function create_default_slot_2$1(ctx) {
     	let label;
     	let current;
@@ -25865,14 +25873,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_2$1.name,
     		type: "slot",
-    		source: "(27:4) <Button on:click={() => dispatch('close')}>",
+    		source: "(28:4) <Button on:click={() => dispatch('close')}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (26:2) <Actions>
+    // (27:2) <Actions>
     function create_default_slot_1$1(ctx) {
     	let button;
     	let current;
@@ -25922,7 +25930,7 @@ var app = (function () {
     		block,
     		id: create_default_slot_1$1.name,
     		type: "slot",
-    		source: "(26:2) <Actions>",
+    		source: "(27:2) <Actions>",
     		ctx
     	});
 

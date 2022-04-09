@@ -18,11 +18,12 @@
   <Content id="simple-content">
     <ol>
       <li>Dodaj klucz API Harvesta</li>
+      <li>Zaloguj się z googlem i dodaj token</li>
       <li>Wybierz przedział</li>
-      <li>Wygeneruj skrypt</li>
-      <li>Skopiuj kod</li>
-      <li>Wklej do konsoli przeglądarki na stronie teamdecka</li>
-      <li>Odśwież stronę i sprawdź poprawność danych</li>
+      <li>Pobierz dane</li>
+      <li>Wciśnij przycisk dodaj do teamdecka</li>
+      <li>Poczekaj az wszystko się doda</li>
+      <li>Przejdź do teamdecka i sprawdź poprawność danych</li>
       <li>Profit</li>
     </ol>
   </Content>
