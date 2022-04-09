@@ -8,7 +8,7 @@ export interface GoogleLoginResponse {
 }
 
 export interface TeamdeckApiData {
-    googleToken: string
+    googleCode: string
     accessToken: string;
     refreshToken: string;
 }

@@ -4,11 +4,13 @@
   import Textfield from '@smui/textfield';
   import Button from '@smui/button';
   import { setContext } from 'svelte';
+  import IconButton from '@smui/icon-button';
 
-  let form: HarvestApiData = JSON.parse(localStorage.getItem('harvestAPI')) ?? {
+  const initialForm = {
     token: '',
     accountId: ''
   };
+  let form: HarvestApiData = JSON.parse(localStorage.getItem('harvestAPI')) ?? initialForm;
 
   setContext('harvestAPI', form);
 
@@ -16,9 +18,19 @@
     localStorage.setItem('harvestAPI', JSON.stringify(form));
     push('/');
   };
+
+  const removeSettings = () => {
+    localStorage.removeItem('harvestAPI');
+    form = initialForm;
+  };
 </script>
 
-<h3>Harvest</h3>
+<div class="header-container">
+  <h3>Harvest</h3>
+  <IconButton class="material-icons" aria-label="remove-settings" on:click={removeSettings}
+    >delete</IconButton
+  >
+</div>
 <p>
   Klucz API mozesz znaleźć tutaj: <a
     href="https://id.getharvest.com/developers"
@@ -37,5 +49,11 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+  }
+
+  .header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 </style>
