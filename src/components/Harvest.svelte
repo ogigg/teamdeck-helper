@@ -1,21 +1,16 @@
 <script lang="ts">
-  import Textfield from '@smui/textfield';
   import Button from '@smui/button';
   import SegmentedButton, { Segment } from '@smui/segmented-button';
   import { Label } from '@smui/common';
-  import {
-    taskToTagId,
-    projectNameToProjectId,
-    generateTeamdeckScriptFromHarvest,
-    fetchHarvestData
-  } from '../helpers/harvest';
+  import { fetchHarvestData } from '../helpers/harvest';
   import dayjs from 'dayjs';
-  import IconButton from '@smui/icon-button';
   import type { HarvestApiData, TimeEntry } from './../models/harvest';
   import Flatpickr from 'svelte-flatpickr';
   import 'flatpickr/dist/flatpickr.css';
   import EntryPreview from './entryPreview/EntryPreview.svelte';
   import { fetchClockifyData } from '../helpers/clockify';
+  import TeamdeckHandler from './teamdeckHandler/TeamdeckHandler.svelte';
+  import { addToTeamdeck } from '../store';
 
   let choices = ['Dzisiaj', 'Wczoraj', 'Ostatnie 2 dni', 'Ostatni tydzień', 'Własny zakres'];
   let selected = 'Dzisiaj';
@@ -23,7 +18,6 @@
   let harvestRequest;
   let clockifyRequest;
   let harvestDataFetched = false;
-  let teamdeckScript = '';
   let showDatePicker = false;
 
   let value, formattedValue;
@@ -49,11 +43,11 @@
     } else {
       showDatePicker = false;
     }
-    teamdeckScript = '';
     harvestDataFetched = false;
   }
 
   const fetchData = () => {
+    addToTeamdeck.update(() => false);
     harvestDataFetched = true;
     let from = new Date();
     let to = new Date();
@@ -85,19 +79,13 @@
       end: to.toISOString()
     });
 
-    // harvestRequest = fetchHarvestData(params, harvestApiData).then((res: TimeEntry[]) => {
-    //   teamdeckScript = generateTeamdeckScriptFromHarvest(res);
-    //   return res;
-    // });
-
-    harvestRequest = fetchClockifyData(paramsClockify).then((res: TimeEntry[]) => {
-      teamdeckScript = generateTeamdeckScriptFromHarvest(res);
+    harvestRequest = fetchHarvestData(params, harvestApiData).then((res: TimeEntry[]) => {
       return res;
     });
-  };
-  const copyToClipboard = () => {
-    console.log('kopiuj');
-    navigator.clipboard.writeText(teamdeckScript);
+
+    harvestRequest = fetchClockifyData(paramsClockify).then((res: TimeEntry[]) => {
+      return res;
+    });
   };
 </script>
 
@@ -120,18 +108,7 @@
       {#each timeEntries as timeEntry}
         <EntryPreview entry={timeEntry} />
       {/each}
-      <div class="textarea-wrapper">
-        <Textfield
-          style="width: 100%;"
-          textarea
-          variant="outlined"
-          bind:value={teamdeckScript}
-          label="Skrypt do teamdecka"
-        />
-        <IconButton class="material-icons" aria-label="Copy content" on:click={copyToClipboard}
-          >content_copy</IconButton
-        >
-      </div>
+      <TeamdeckHandler {timeEntries} />
     {:catch error}
       <p style="color: red">{error.message}</p>
     {/await}
