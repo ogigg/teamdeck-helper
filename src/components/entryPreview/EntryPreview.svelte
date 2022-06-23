@@ -7,6 +7,7 @@
   import { addTimeEntryToTeamdeck } from '../../helpers/teamdeck';
   import CheckCircle from 'svelte-material-icons/CheckCircle.svelte';
   import CloseCircle from 'svelte-material-icons/CloseCircle.svelte';
+  import { onDestroy } from 'svelte';
 
   export let entry: TimeEntry;
 
@@ -14,7 +15,7 @@
     success,
     error = false;
 
-  addToTeamdeck.subscribe(async shouldAddToTeamdeck => {
+  const storelistner = addToTeamdeck.subscribe(async shouldAddToTeamdeck => {
     if (shouldAddToTeamdeck) {
       spinner = true;
       const res = await addTimeEntryToTeamdeck(entry);
@@ -29,6 +30,8 @@
     const minutes = totalMinutes % 60;
     return `${hours}h ${minutes}m`;
   };
+
+  onDestroy(storelistner);
 </script>
 
 <Card padded>
