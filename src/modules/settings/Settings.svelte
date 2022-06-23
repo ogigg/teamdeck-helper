@@ -1,16 +1,7 @@
 <script lang="ts">
-  import { push } from 'svelte-spa-router';
-  import Textfield from '@smui/textfield';
-  import Button from '@smui/button';
-  import { TEAMDECK_API } from '../../constants/api';
-  import type {
-    GoogleLoginResponse,
-    GraphQlResponse,
-    TeamdeckApiData,
-    TeamdeckTokenExchangeResponse
-  } from '../../models/teamdeck';
   import HarvestSettings from './HarvestSettings.svelte';
   import TeamdeckSettings from './TeamdeckSettings.svelte';
+  import ClockifySettings from './ClockifySettings.svelte';
 </script>
 
 <section>
@@ -19,23 +10,10 @@
     <HarvestSettings />
   </div>
   <div class="section-wrapper">
-    <!-- <h3>Clockify</h3>
-    <p>
-      Klucz API mozesz znaleźć tutaj: <a
-        href="https://app.clockify.me/user/settings"
-        rel="noopener noreferrer"
-        target="_blank">https://app.clockify.me/user/settings</a
-      >
-    </p>
-    <form on:submit|preventDefault={onClockifySubmit} class="harvest-form">
-      <Textfield variant="outlined" bind:value={clockifyForm.token} label="Api Key" />
-      <Textfield variant="outlined" bind:value={clockifyForm.accountId} label="Account Id" />
-      <Button type="submit" variant="raised">Zapisz</Button>
-    </form>
-  </div> -->
-    <div class="section-wrapper">
-      <TeamdeckSettings />
-    </div>
+    <ClockifySettings />
+  </div>
+  <div class="section-wrapper">
+    <TeamdeckSettings />
   </div>
 </section>
 

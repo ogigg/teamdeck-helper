@@ -1,11 +1,13 @@
-import { ClockifyProject } from "../models/clockify";
+import dayjs from "dayjs";
+import { CLOCKIFY_API } from "../constants/api";
+import { ClockifyAPI, ClockifyProject, Workspace } from "../models/clockify";
 import { TeamdeckProject, TeamdeckTag } from "../models/harvest";
 
 const WORKSPACE = "623215e7dd0ec81cc3c77e9a";
 const USER_ID = "611670145d7e6a46eb7c84a3";
 
 export const fetchClockifyData = (params) => fetch(
-    `https://api.clockify.me/api/v1/workspaces/${WORKSPACE}/user/${USER_ID}/time-entries?${params}`,
+    `${CLOCKIFY_API}workspaces/${WORKSPACE}/user/${USER_ID}/time-entries?${params}`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -23,7 +25,7 @@ export const fetchClockifyData = (params) => fetch(
         ),
         project: projectNameToProjectId(entry.projectId),
         name: entry.description,
-        date: entry.timeInterval.start,
+        date: dayjs(entry.timeInterval.start).format('YYYY-MM-DD'),
         tag: TeamdeckTag.Programming,
       }))
     )
@@ -41,3 +43,23 @@ export const fetchClockifyData = (params) => fetch(
           }
           return "";
         };
+
+export const getWorkspaces = (): Promise<Workspace[]>=> {
+  const clockifyAPI: ClockifyAPI = JSON.parse(localStorage.getItem('clockifyAPI'));
+  return fetch(`${CLOCKIFY_API}workspaces`, {
+    headers: {
+      "Content-Type": "application/json",
+      "X-Api-Key": clockifyAPI.apiKey,
+    },
+  }).then(res => res.json())
+}
+
+export const getProjects = (workspaceId): Promise<Workspace[]>=> {
+  const clockifyAPI: ClockifyAPI = JSON.parse(localStorage.getItem('clockifyAPI'));
+  return fetch(`${CLOCKIFY_API}workspaces/${workspaceId}/projects`, {
+    headers: {
+      "Content-Type": "application/json",
+      "X-Api-Key":  clockifyAPI.apiKey,
+    },
+  }).then(res => res.json())
+}

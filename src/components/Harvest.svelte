@@ -84,6 +84,7 @@
     });
 
     harvestRequest = fetchClockifyData(paramsClockify).then((res: TimeEntry[]) => {
+      console.log(res);
       return res;
     });
   };
