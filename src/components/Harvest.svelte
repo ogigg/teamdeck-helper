@@ -1,33 +1,29 @@
 <script lang="ts">
   import Button from '@smui/button';
-  import SegmentedButton, { Segment } from '@smui/segmented-button';
-  import { Label } from '@smui/common';
   import { taskToTagId, projectNameToProjectId } from '../helpers/harvest';
   import dayjs from 'dayjs';
   import type { HarvestApiData, TimeEntry } from './../models/harvest';
-  import Flatpickr from 'svelte-flatpickr';
-  import 'flatpickr/dist/flatpickr.css';
   import EntryPreview from './entryPreview/EntryPreview.svelte';
   import TeamdeckHandler from './teamdeckHandler/TeamdeckHandler.svelte';
   import { addToTeamdeck, selectedDates } from '../store';
   import TimeRangePicker from './TimeRangePicker.svelte';
+  import { onDestroy } from 'svelte';
 
   export let harvestApiData: HarvestApiData;
   let request;
   let harvestDataFetched = false;
 
-  selectedDates.subscribe(e => {
-    console.log(e);
+  const storeDateSubscriber = selectedDates.subscribe(v => {
+    harvestDataFetched = false;
   });
+
   const fetchData = () => {
     addToTeamdeck.update(() => false);
     harvestDataFetched = true;
-    let from = new Date();
-    let to = new Date();
 
     const params = new URLSearchParams({
-      from: from.toISOString(),
-      to: to.toISOString()
+      from: $selectedDates.from.toISOString(),
+      to: $selectedDates.to.toISOString()
     });
 
     request = fetch('https://api.harvestapp.com/api/v2/time_entries?' + params, {
@@ -51,6 +47,8 @@
         return res;
       });
   };
+
+  onDestroy(storeDateSubscriber);
 </script>
 
 <div class="section-wrapper">

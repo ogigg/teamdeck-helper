@@ -37,6 +37,7 @@
           from: dayjs().startOf('day').add(dayjs().utcOffset(), 'minutes').toDate(),
           to: new Date()
         };
+        break;
       case TimeRange.Yesterday:
         newDateRange = {
           from: dayjs()
@@ -46,6 +47,7 @@
             .toDate(),
           to: dayjs().subtract(1, 'day').endOf('day').add(dayjs().utcOffset(), 'minutes').toDate()
         };
+        break;
       case TimeRange.Last2Days:
         newDateRange = {
           from: dayjs()
@@ -55,6 +57,7 @@
             .toDate(),
           to: new Date()
         };
+        break;
       case TimeRange.LastWeek:
         newDateRange = {
           from: dayjs()
@@ -64,6 +67,7 @@
             .toDate(),
           to: new Date()
         };
+        break;
     }
     if (newDateRange) {
       selectedDates.update(() => newDateRange);
