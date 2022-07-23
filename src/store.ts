@@ -14,3 +14,8 @@ export const selectedDates: Writable<{from: Date, to: Date}> = writable({
 });
 
 export const timeEntries: Writable<TimeEntry[]> = writable([]);
+
+export const availableProviders: Writable<{ harvest: boolean, clockify: boolean }> = writable({
+    harvest: false,
+    clockify: false
+})
