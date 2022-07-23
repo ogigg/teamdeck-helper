@@ -18,6 +18,10 @@ export const teamdeckProjectIdToProjectName = (projectId: TeamdeckProject) => {
       return 'Skyfld'
     case TeamdeckProject.Vicodo:
       return 'Vicodo'
+    case TeamdeckProject.Unicomm:
+      return 'Unicomm'
+    case TeamdeckProject.Moodup:
+      return 'Moodup'
     default:
       return projectId;
   }
