@@ -1,11 +1,10 @@
 <script lang="ts">
   import Button from '@smui/button';
   import { taskToTagId, projectNameToProjectId } from '../helpers/harvest';
-  import dayjs from 'dayjs';
-  import type { HarvestApiData, TimeEntry } from './../models/harvest';
+  import { HarvestApiData, TimeEntry, TimeEntryRequestStatus } from './../models/harvest';
   import EntryPreview from './entryPreview/EntryPreview.svelte';
   import TeamdeckHandler from './teamdeckHandler/TeamdeckHandler.svelte';
-  import { addToTeamdeck, selectedDates } from '../store';
+  import { addToTeamdeck, selectedDates, timeEntries } from '../store';
   import TimeRangePicker from './TimeRangePicker.svelte';
   import { onDestroy } from 'svelte';
 
@@ -40,11 +39,13 @@
           project: projectNameToProjectId(entry.project.name),
           name: entry.notes,
           date: entry.spent_date,
-          tag: taskToTagId(entry.task.id)
+          tag: taskToTagId(entry.task.id),
+          status: TimeEntryRequestStatus.None
         }))
       )
-      .then((res: TimeEntry[]) => {
-        return res;
+      .then((entries: TimeEntry[]) => {
+        timeEntries.set(entries);
+        return entries;
       });
   };
 
@@ -57,12 +58,12 @@
   {#if harvestDataFetched}
     {#await request}
       <p>...Pobieram</p>
-    {:then timeEntries}
-      <p>Pobrano {timeEntries?.length} wpisów</p>
-      {#each timeEntries as timeEntry}
+    {:then}
+      <p>Pobrano {$timeEntries?.length} wpisów</p>
+      {#each $timeEntries as timeEntry}
         <EntryPreview entry={timeEntry} />
       {/each}
-      <TeamdeckHandler {timeEntries} />
+      <TeamdeckHandler timeEntries={$timeEntries} />
     {:catch error}
       <p style="color: red">{error.message}</p>
     {/await}

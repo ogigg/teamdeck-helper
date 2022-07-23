@@ -15710,6 +15710,13 @@ var app = (function () {
     	}
     }
 
+    var TimeEntryRequestStatus;
+    (function (TimeEntryRequestStatus) {
+        TimeEntryRequestStatus[TimeEntryRequestStatus["None"] = 0] = "None";
+        TimeEntryRequestStatus[TimeEntryRequestStatus["Loading"] = 1] = "Loading";
+        TimeEntryRequestStatus[TimeEntryRequestStatus["Success"] = 2] = "Success";
+        TimeEntryRequestStatus[TimeEntryRequestStatus["Error"] = 3] = "Error";
+    })(TimeEntryRequestStatus || (TimeEntryRequestStatus = {}));
     var TeamdeckProject;
     (function (TeamdeckProject) {
         TeamdeckProject["Skyfld"] = "250349";
@@ -15778,17 +15785,6 @@ var app = (function () {
         }
         return tag;
     };
-
-    var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
-
-    function createCommonjsModule(fn) {
-      var module = { exports: {} };
-    	return fn(module, module.exports), module.exports;
-    }
-
-    var dayjs_min = createCommonjsModule(function (module, exports) {
-    !function(t,e){module.exports=e();}(commonjsGlobal,(function(){var t=1e3,e=6e4,n=36e5,r="millisecond",i="second",s="minute",u="hour",a="day",o="week",f="month",h="quarter",c="year",d="date",$="Invalid Date",l=/^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/,y=/\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g,M={name:"en",weekdays:"Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),months:"January_February_March_April_May_June_July_August_September_October_November_December".split("_")},m=function(t,e,n){var r=String(t);return !r||r.length>=e?t:""+Array(e+1-r.length).join(n)+t},g={s:m,z:function(t){var e=-t.utcOffset(),n=Math.abs(e),r=Math.floor(n/60),i=n%60;return (e<=0?"+":"-")+m(r,2,"0")+":"+m(i,2,"0")},m:function t(e,n){if(e.date()<n.date())return -t(n,e);var r=12*(n.year()-e.year())+(n.month()-e.month()),i=e.clone().add(r,f),s=n-i<0,u=e.clone().add(r+(s?-1:1),f);return +(-(r+(n-i)/(s?i-u:u-i))||0)},a:function(t){return t<0?Math.ceil(t)||0:Math.floor(t)},p:function(t){return {M:f,y:c,w:o,d:a,D:d,h:u,m:s,s:i,ms:r,Q:h}[t]||String(t||"").toLowerCase().replace(/s$/,"")},u:function(t){return void 0===t}},v="en",D={};D[v]=M;var p=function(t){return t instanceof _},S=function t(e,n,r){var i;if(!e)return v;if("string"==typeof e){var s=e.toLowerCase();D[s]&&(i=s),n&&(D[s]=n,i=s);var u=e.split("-");if(!i&&u.length>1)return t(u[0])}else {var a=e.name;D[a]=e,i=a;}return !r&&i&&(v=i),i||!r&&v},w=function(t,e){if(p(t))return t.clone();var n="object"==typeof e?e:{};return n.date=t,n.args=arguments,new _(n)},O=g;O.l=S,O.i=p,O.w=function(t,e){return w(t,{locale:e.$L,utc:e.$u,x:e.$x,$offset:e.$offset})};var _=function(){function M(t){this.$L=S(t.locale,null,!0),this.parse(t);}var m=M.prototype;return m.parse=function(t){this.$d=function(t){var e=t.date,n=t.utc;if(null===e)return new Date(NaN);if(O.u(e))return new Date;if(e instanceof Date)return new Date(e);if("string"==typeof e&&!/Z$/i.test(e)){var r=e.match(l);if(r){var i=r[2]-1||0,s=(r[7]||"0").substring(0,3);return n?new Date(Date.UTC(r[1],i,r[3]||1,r[4]||0,r[5]||0,r[6]||0,s)):new Date(r[1],i,r[3]||1,r[4]||0,r[5]||0,r[6]||0,s)}}return new Date(e)}(t),this.$x=t.x||{},this.init();},m.init=function(){var t=this.$d;this.$y=t.getFullYear(),this.$M=t.getMonth(),this.$D=t.getDate(),this.$W=t.getDay(),this.$H=t.getHours(),this.$m=t.getMinutes(),this.$s=t.getSeconds(),this.$ms=t.getMilliseconds();},m.$utils=function(){return O},m.isValid=function(){return !(this.$d.toString()===$)},m.isSame=function(t,e){var n=w(t);return this.startOf(e)<=n&&n<=this.endOf(e)},m.isAfter=function(t,e){return w(t)<this.startOf(e)},m.isBefore=function(t,e){return this.endOf(e)<w(t)},m.$g=function(t,e,n){return O.u(t)?this[e]:this.set(n,t)},m.unix=function(){return Math.floor(this.valueOf()/1e3)},m.valueOf=function(){return this.$d.getTime()},m.startOf=function(t,e){var n=this,r=!!O.u(e)||e,h=O.p(t),$=function(t,e){var i=O.w(n.$u?Date.UTC(n.$y,e,t):new Date(n.$y,e,t),n);return r?i:i.endOf(a)},l=function(t,e){return O.w(n.toDate()[t].apply(n.toDate("s"),(r?[0,0,0,0]:[23,59,59,999]).slice(e)),n)},y=this.$W,M=this.$M,m=this.$D,g="set"+(this.$u?"UTC":"");switch(h){case c:return r?$(1,0):$(31,11);case f:return r?$(1,M):$(0,M+1);case o:var v=this.$locale().weekStart||0,D=(y<v?y+7:y)-v;return $(r?m-D:m+(6-D),M);case a:case d:return l(g+"Hours",0);case u:return l(g+"Minutes",1);case s:return l(g+"Seconds",2);case i:return l(g+"Milliseconds",3);default:return this.clone()}},m.endOf=function(t){return this.startOf(t,!1)},m.$set=function(t,e){var n,o=O.p(t),h="set"+(this.$u?"UTC":""),$=(n={},n[a]=h+"Date",n[d]=h+"Date",n[f]=h+"Month",n[c]=h+"FullYear",n[u]=h+"Hours",n[s]=h+"Minutes",n[i]=h+"Seconds",n[r]=h+"Milliseconds",n)[o],l=o===a?this.$D+(e-this.$W):e;if(o===f||o===c){var y=this.clone().set(d,1);y.$d[$](l),y.init(),this.$d=y.set(d,Math.min(this.$D,y.daysInMonth())).$d;}else $&&this.$d[$](l);return this.init(),this},m.set=function(t,e){return this.clone().$set(t,e)},m.get=function(t){return this[O.p(t)]()},m.add=function(r,h){var d,$=this;r=Number(r);var l=O.p(h),y=function(t){var e=w($);return O.w(e.date(e.date()+Math.round(t*r)),$)};if(l===f)return this.set(f,this.$M+r);if(l===c)return this.set(c,this.$y+r);if(l===a)return y(1);if(l===o)return y(7);var M=(d={},d[s]=e,d[u]=n,d[i]=t,d)[l]||1,m=this.$d.getTime()+r*M;return O.w(m,this)},m.subtract=function(t,e){return this.add(-1*t,e)},m.format=function(t){var e=this,n=this.$locale();if(!this.isValid())return n.invalidDate||$;var r=t||"YYYY-MM-DDTHH:mm:ssZ",i=O.z(this),s=this.$H,u=this.$m,a=this.$M,o=n.weekdays,f=n.months,h=function(t,n,i,s){return t&&(t[n]||t(e,r))||i[n].substr(0,s)},c=function(t){return O.s(s%12||12,t,"0")},d=n.meridiem||function(t,e,n){var r=t<12?"AM":"PM";return n?r.toLowerCase():r},l={YY:String(this.$y).slice(-2),YYYY:this.$y,M:a+1,MM:O.s(a+1,2,"0"),MMM:h(n.monthsShort,a,f,3),MMMM:h(f,a),D:this.$D,DD:O.s(this.$D,2,"0"),d:String(this.$W),dd:h(n.weekdaysMin,this.$W,o,2),ddd:h(n.weekdaysShort,this.$W,o,3),dddd:o[this.$W],H:String(s),HH:O.s(s,2,"0"),h:c(1),hh:c(2),a:d(s,u,!0),A:d(s,u,!1),m:String(u),mm:O.s(u,2,"0"),s:String(this.$s),ss:O.s(this.$s,2,"0"),SSS:O.s(this.$ms,3,"0"),Z:i};return r.replace(y,(function(t,e){return e||l[t]||i.replace(":","")}))},m.utcOffset=function(){return 15*-Math.round(this.$d.getTimezoneOffset()/15)},m.diff=function(r,d,$){var l,y=O.p(d),M=w(r),m=(M.utcOffset()-this.utcOffset())*e,g=this-M,v=O.m(this,M);return v=(l={},l[c]=v/12,l[f]=v,l[h]=v/3,l[o]=(g-m)/6048e5,l[a]=(g-m)/864e5,l[u]=g/n,l[s]=g/e,l[i]=g/t,l)[y]||g,$?v:O.a(v)},m.daysInMonth=function(){return this.endOf(f).$D},m.$locale=function(){return D[this.$L]},m.locale=function(t,e){if(!t)return this.$L;var n=this.clone(),r=S(t,e,!0);return r&&(n.$L=r),n},m.clone=function(){return O.w(this.$d,this)},m.toDate=function(){return new Date(this.valueOf())},m.toJSON=function(){return this.isValid()?this.toISOString():null},m.toISOString=function(){return this.$d.toISOString()},m.toString=function(){return this.$d.toUTCString()},M}(),b=_.prototype;return w.prototype=b,[["$ms",r],["$s",i],["$m",s],["$H",u],["$W",a],["$M",f],["$y",c],["$D",d]].forEach((function(t){b[t[1]]=function(e){return this.$g(e,t[0],t[1])};})),w.extend=function(t,e){return t.$i||(t(e,_,w),t.$i=!0),w},w.locale=S,w.isDayjs=p,w.unix=function(t){return w(1e3*t)},w.en=D[v],w.Ls=D,w.p={},w}));
-    });
 
     /* node_modules/@smui/card/dist/Card.svelte generated by Svelte v3.46.4 */
     const file$g = "node_modules/@smui/card/dist/Card.svelte";
@@ -16067,6 +16063,7 @@ var app = (function () {
         from: new Date(),
         to: new Date()
     });
+    const timeEntries = writable([]);
 
     const addTimeEntryToTeamdeck = async (timeEntry) => {
         var _a, _b;
@@ -21718,6 +21715,17 @@ var app = (function () {
         TimeRange.Custom
     ];
 
+    var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+    function createCommonjsModule(fn) {
+      var module = { exports: {} };
+    	return fn(module, module.exports), module.exports;
+    }
+
+    var dayjs_min = createCommonjsModule(function (module, exports) {
+    !function(t,e){module.exports=e();}(commonjsGlobal,(function(){var t=1e3,e=6e4,n=36e5,r="millisecond",i="second",s="minute",u="hour",a="day",o="week",f="month",h="quarter",c="year",d="date",$="Invalid Date",l=/^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/,y=/\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g,M={name:"en",weekdays:"Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),months:"January_February_March_April_May_June_July_August_September_October_November_December".split("_")},m=function(t,e,n){var r=String(t);return !r||r.length>=e?t:""+Array(e+1-r.length).join(n)+t},g={s:m,z:function(t){var e=-t.utcOffset(),n=Math.abs(e),r=Math.floor(n/60),i=n%60;return (e<=0?"+":"-")+m(r,2,"0")+":"+m(i,2,"0")},m:function t(e,n){if(e.date()<n.date())return -t(n,e);var r=12*(n.year()-e.year())+(n.month()-e.month()),i=e.clone().add(r,f),s=n-i<0,u=e.clone().add(r+(s?-1:1),f);return +(-(r+(n-i)/(s?i-u:u-i))||0)},a:function(t){return t<0?Math.ceil(t)||0:Math.floor(t)},p:function(t){return {M:f,y:c,w:o,d:a,D:d,h:u,m:s,s:i,ms:r,Q:h}[t]||String(t||"").toLowerCase().replace(/s$/,"")},u:function(t){return void 0===t}},v="en",D={};D[v]=M;var p=function(t){return t instanceof _},S=function t(e,n,r){var i;if(!e)return v;if("string"==typeof e){var s=e.toLowerCase();D[s]&&(i=s),n&&(D[s]=n,i=s);var u=e.split("-");if(!i&&u.length>1)return t(u[0])}else {var a=e.name;D[a]=e,i=a;}return !r&&i&&(v=i),i||!r&&v},w=function(t,e){if(p(t))return t.clone();var n="object"==typeof e?e:{};return n.date=t,n.args=arguments,new _(n)},O=g;O.l=S,O.i=p,O.w=function(t,e){return w(t,{locale:e.$L,utc:e.$u,x:e.$x,$offset:e.$offset})};var _=function(){function M(t){this.$L=S(t.locale,null,!0),this.parse(t);}var m=M.prototype;return m.parse=function(t){this.$d=function(t){var e=t.date,n=t.utc;if(null===e)return new Date(NaN);if(O.u(e))return new Date;if(e instanceof Date)return new Date(e);if("string"==typeof e&&!/Z$/i.test(e)){var r=e.match(l);if(r){var i=r[2]-1||0,s=(r[7]||"0").substring(0,3);return n?new Date(Date.UTC(r[1],i,r[3]||1,r[4]||0,r[5]||0,r[6]||0,s)):new Date(r[1],i,r[3]||1,r[4]||0,r[5]||0,r[6]||0,s)}}return new Date(e)}(t),this.$x=t.x||{},this.init();},m.init=function(){var t=this.$d;this.$y=t.getFullYear(),this.$M=t.getMonth(),this.$D=t.getDate(),this.$W=t.getDay(),this.$H=t.getHours(),this.$m=t.getMinutes(),this.$s=t.getSeconds(),this.$ms=t.getMilliseconds();},m.$utils=function(){return O},m.isValid=function(){return !(this.$d.toString()===$)},m.isSame=function(t,e){var n=w(t);return this.startOf(e)<=n&&n<=this.endOf(e)},m.isAfter=function(t,e){return w(t)<this.startOf(e)},m.isBefore=function(t,e){return this.endOf(e)<w(t)},m.$g=function(t,e,n){return O.u(t)?this[e]:this.set(n,t)},m.unix=function(){return Math.floor(this.valueOf()/1e3)},m.valueOf=function(){return this.$d.getTime()},m.startOf=function(t,e){var n=this,r=!!O.u(e)||e,h=O.p(t),$=function(t,e){var i=O.w(n.$u?Date.UTC(n.$y,e,t):new Date(n.$y,e,t),n);return r?i:i.endOf(a)},l=function(t,e){return O.w(n.toDate()[t].apply(n.toDate("s"),(r?[0,0,0,0]:[23,59,59,999]).slice(e)),n)},y=this.$W,M=this.$M,m=this.$D,g="set"+(this.$u?"UTC":"");switch(h){case c:return r?$(1,0):$(31,11);case f:return r?$(1,M):$(0,M+1);case o:var v=this.$locale().weekStart||0,D=(y<v?y+7:y)-v;return $(r?m-D:m+(6-D),M);case a:case d:return l(g+"Hours",0);case u:return l(g+"Minutes",1);case s:return l(g+"Seconds",2);case i:return l(g+"Milliseconds",3);default:return this.clone()}},m.endOf=function(t){return this.startOf(t,!1)},m.$set=function(t,e){var n,o=O.p(t),h="set"+(this.$u?"UTC":""),$=(n={},n[a]=h+"Date",n[d]=h+"Date",n[f]=h+"Month",n[c]=h+"FullYear",n[u]=h+"Hours",n[s]=h+"Minutes",n[i]=h+"Seconds",n[r]=h+"Milliseconds",n)[o],l=o===a?this.$D+(e-this.$W):e;if(o===f||o===c){var y=this.clone().set(d,1);y.$d[$](l),y.init(),this.$d=y.set(d,Math.min(this.$D,y.daysInMonth())).$d;}else $&&this.$d[$](l);return this.init(),this},m.set=function(t,e){return this.clone().$set(t,e)},m.get=function(t){return this[O.p(t)]()},m.add=function(r,h){var d,$=this;r=Number(r);var l=O.p(h),y=function(t){var e=w($);return O.w(e.date(e.date()+Math.round(t*r)),$)};if(l===f)return this.set(f,this.$M+r);if(l===c)return this.set(c,this.$y+r);if(l===a)return y(1);if(l===o)return y(7);var M=(d={},d[s]=e,d[u]=n,d[i]=t,d)[l]||1,m=this.$d.getTime()+r*M;return O.w(m,this)},m.subtract=function(t,e){return this.add(-1*t,e)},m.format=function(t){var e=this,n=this.$locale();if(!this.isValid())return n.invalidDate||$;var r=t||"YYYY-MM-DDTHH:mm:ssZ",i=O.z(this),s=this.$H,u=this.$m,a=this.$M,o=n.weekdays,f=n.months,h=function(t,n,i,s){return t&&(t[n]||t(e,r))||i[n].substr(0,s)},c=function(t){return O.s(s%12||12,t,"0")},d=n.meridiem||function(t,e,n){var r=t<12?"AM":"PM";return n?r.toLowerCase():r},l={YY:String(this.$y).slice(-2),YYYY:this.$y,M:a+1,MM:O.s(a+1,2,"0"),MMM:h(n.monthsShort,a,f,3),MMMM:h(f,a),D:this.$D,DD:O.s(this.$D,2,"0"),d:String(this.$W),dd:h(n.weekdaysMin,this.$W,o,2),ddd:h(n.weekdaysShort,this.$W,o,3),dddd:o[this.$W],H:String(s),HH:O.s(s,2,"0"),h:c(1),hh:c(2),a:d(s,u,!0),A:d(s,u,!1),m:String(u),mm:O.s(u,2,"0"),s:String(this.$s),ss:O.s(this.$s,2,"0"),SSS:O.s(this.$ms,3,"0"),Z:i};return r.replace(y,(function(t,e){return e||l[t]||i.replace(":","")}))},m.utcOffset=function(){return 15*-Math.round(this.$d.getTimezoneOffset()/15)},m.diff=function(r,d,$){var l,y=O.p(d),M=w(r),m=(M.utcOffset()-this.utcOffset())*e,g=this-M,v=O.m(this,M);return v=(l={},l[c]=v/12,l[f]=v,l[h]=v/3,l[o]=(g-m)/6048e5,l[a]=(g-m)/864e5,l[u]=g/n,l[s]=g/e,l[i]=g/t,l)[y]||g,$?v:O.a(v)},m.daysInMonth=function(){return this.endOf(f).$D},m.$locale=function(){return D[this.$L]},m.locale=function(t,e){if(!t)return this.$L;var n=this.clone(),r=S(t,e,!0);return r&&(n.$L=r),n},m.clone=function(){return O.w(this.$d,this)},m.toDate=function(){return new Date(this.valueOf())},m.toJSON=function(){return this.isValid()?this.toISOString():null},m.toISOString=function(){return this.$d.toISOString()},m.toString=function(){return this.$d.toUTCString()},M}(),b=_.prototype;return w.prototype=b,[["$ms",r],["$s",i],["$m",s],["$H",u],["$W",a],["$M",f],["$y",c],["$D",d]].forEach((function(t){b[t[1]]=function(e){return this.$g(e,t[0],t[1])};})),w.extend=function(t,e){return t.$i||(t(e,_,w),t.$i=!0),w},w.locale=S,w.isDayjs=p,w.unix=function(t){return w(1e3*t)},w.en=D[v],w.Ls=D,w.p={},w}));
+    });
+
     /* src/components/TimeRangePicker.svelte generated by Svelte v3.46.4 */
     const file$9 = "src/components/TimeRangePicker.svelte";
 
@@ -22224,7 +22232,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (47:2) {#if harvestDataFetched}
+    // (49:2) {#if harvestDataFetched}
     function create_if_block$2(ctx) {
     	let await_block_anchor;
     	let promise;
@@ -22238,7 +22246,6 @@ var app = (function () {
     		pending: create_pending_block,
     		then: create_then_block,
     		catch: create_catch_block,
-    		value: 6,
     		error: 10,
     		blocks: [,,,]
     	};
@@ -22290,14 +22297,14 @@ var app = (function () {
     		block,
     		id: create_if_block$2.name,
     		type: "if",
-    		source: "(47:2) {#if harvestDataFetched}",
+    		source: "(49:2) {#if harvestDataFetched}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (56:4) {:catch error}
+    // (58:4) {:catch error}
     function create_catch_block(ctx) {
     	let p;
     	let t_value = /*error*/ ctx[10].message + "";
@@ -22308,7 +22315,7 @@ var app = (function () {
     			p = element("p");
     			t = text(t_value);
     			set_style(p, "color", "red");
-    			add_location(p, file$8, 56, 6, 1900);
+    			add_location(p, file$8, 58, 6, 2049);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -22328,25 +22335,25 @@ var app = (function () {
     		block,
     		id: create_catch_block.name,
     		type: "catch",
-    		source: "(56:4) {:catch error}",
+    		source: "(58:4) {:catch error}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (50:4) {:then timeEntries}
+    // (52:4) {:then}
     function create_then_block(ctx) {
     	let p;
     	let t0;
-    	let t1_value = /*timeEntries*/ ctx[6]?.length + "";
+    	let t1_value = /*$timeEntries*/ ctx[2]?.length + "";
     	let t1;
     	let t2;
     	let t3;
     	let t4;
     	let teamdeckhandler;
     	let current;
-    	let each_value = /*timeEntries*/ ctx[6];
+    	let each_value = /*$timeEntries*/ ctx[2];
     	validate_each_argument(each_value);
     	let each_blocks = [];
 
@@ -22359,7 +22366,7 @@ var app = (function () {
     	});
 
     	teamdeckhandler = new TeamdeckHandler({
-    			props: { timeEntries: /*timeEntries*/ ctx[6] },
+    			props: { timeEntries: /*$timeEntries*/ ctx[2] },
     			$$inline: true
     		});
 
@@ -22377,7 +22384,7 @@ var app = (function () {
 
     			t4 = space();
     			create_component(teamdeckhandler.$$.fragment);
-    			add_location(p, file$8, 50, 6, 1695);
+    			add_location(p, file$8, 52, 6, 1829);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -22395,10 +22402,10 @@ var app = (function () {
     			current = true;
     		},
     		p: function update(ctx, dirty) {
-    			if ((!current || dirty & /*request*/ 1) && t1_value !== (t1_value = /*timeEntries*/ ctx[6]?.length + "")) set_data_dev(t1, t1_value);
+    			if ((!current || dirty & /*$timeEntries*/ 4) && t1_value !== (t1_value = /*$timeEntries*/ ctx[2]?.length + "")) set_data_dev(t1, t1_value);
 
-    			if (dirty & /*request*/ 1) {
-    				each_value = /*timeEntries*/ ctx[6];
+    			if (dirty & /*$timeEntries*/ 4) {
+    				each_value = /*$timeEntries*/ ctx[2];
     				validate_each_argument(each_value);
     				let i;
 
@@ -22426,7 +22433,7 @@ var app = (function () {
     			}
 
     			const teamdeckhandler_changes = {};
-    			if (dirty & /*request*/ 1) teamdeckhandler_changes.timeEntries = /*timeEntries*/ ctx[6];
+    			if (dirty & /*$timeEntries*/ 4) teamdeckhandler_changes.timeEntries = /*$timeEntries*/ ctx[2];
     			teamdeckhandler.$set(teamdeckhandler_changes);
     		},
     		i: function intro(local) {
@@ -22462,14 +22469,14 @@ var app = (function () {
     		block,
     		id: create_then_block.name,
     		type: "then",
-    		source: "(50:4) {:then timeEntries}",
+    		source: "(52:4) {:then}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (52:6) {#each timeEntries as timeEntry}
+    // (54:6) {#each $timeEntries as timeEntry}
     function create_each_block(ctx) {
     	let entrypreview;
     	let current;
@@ -22489,7 +22496,7 @@ var app = (function () {
     		},
     		p: function update(ctx, dirty) {
     			const entrypreview_changes = {};
-    			if (dirty & /*request*/ 1) entrypreview_changes.entry = /*timeEntry*/ ctx[7];
+    			if (dirty & /*$timeEntries*/ 4) entrypreview_changes.entry = /*timeEntry*/ ctx[7];
     			entrypreview.$set(entrypreview_changes);
     		},
     		i: function intro(local) {
@@ -22510,14 +22517,14 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(52:6) {#each timeEntries as timeEntry}",
+    		source: "(54:6) {#each $timeEntries as timeEntry}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (48:20)        <p>...Pobieram</p>     {:then timeEntries}
+    // (50:20)        <p>...Pobieram</p>     {:then}
     function create_pending_block(ctx) {
     	let p;
 
@@ -22525,7 +22532,7 @@ var app = (function () {
     		c: function create() {
     			p = element("p");
     			p.textContent = "...Pobieram";
-    			add_location(p, file$8, 48, 6, 1646);
+    			add_location(p, file$8, 50, 6, 1792);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -22542,14 +22549,14 @@ var app = (function () {
     		block,
     		id: create_pending_block.name,
     		type: "pending",
-    		source: "(48:20)        <p>...Pobieram</p>     {:then timeEntries}",
+    		source: "(50:20)        <p>...Pobieram</p>     {:then}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (61:2) <Button variant="raised" on:click={fetchData}>
+    // (63:2) <Button variant="raised" on:click={fetchData}>
     function create_default_slot$2(ctx) {
     	let t;
 
@@ -22569,7 +22576,7 @@ var app = (function () {
     		block,
     		id: create_default_slot$2.name,
     		type: "slot",
-    		source: "(61:2) <Button variant=\\\"raised\\\" on:click={fetchData}>",
+    		source: "(63:2) <Button variant=\\\"raised\\\" on:click={fetchData}>",
     		ctx
     	});
 
@@ -22597,7 +22604,7 @@ var app = (function () {
     			$$inline: true
     		});
 
-    	button.$on("click", /*fetchData*/ ctx[2]);
+    	button.$on("click", /*fetchData*/ ctx[3]);
 
     	const block = {
     		c: function create() {
@@ -22610,9 +22617,9 @@ var app = (function () {
     			if (if_block) if_block.c();
     			t3 = space();
     			create_component(button.$$.fragment);
-    			add_location(h3, file$8, 44, 2, 1553);
+    			add_location(h3, file$8, 46, 2, 1699);
     			attr_dev(div, "class", "section-wrapper svelte-gh3rf3");
-    			add_location(div, file$8, 43, 0, 1521);
+    			add_location(div, file$8, 45, 0, 1667);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -22694,8 +22701,11 @@ var app = (function () {
 
     function instance$7($$self, $$props, $$invalidate) {
     	let $selectedDates;
+    	let $timeEntries;
     	validate_store(selectedDates, 'selectedDates');
-    	component_subscribe($$self, selectedDates, $$value => $$invalidate(4, $selectedDates = $$value));
+    	component_subscribe($$self, selectedDates, $$value => $$invalidate(5, $selectedDates = $$value));
+    	validate_store(timeEntries, 'timeEntries');
+    	component_subscribe($$self, timeEntries, $$value => $$invalidate(2, $timeEntries = $$value));
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('Harvest', slots, []);
     	let { harvestApiData } = $$props;
@@ -22726,9 +22736,11 @@ var app = (function () {
     			project: projectNameToProjectId(entry.project.name),
     			name: entry.notes,
     			date: entry.spent_date,
-    			tag: taskToTagId(entry.task.id)
-    		}))).then(res => {
-    			return res;
+    			tag: taskToTagId(entry.task.id),
+    			status: TimeEntryRequestStatus.None
+    		}))).then(entries => {
+    			timeEntries.set(entries);
+    			return entries;
     		}));
     	};
 
@@ -22740,17 +22752,19 @@ var app = (function () {
     	});
 
     	$$self.$$set = $$props => {
-    		if ('harvestApiData' in $$props) $$invalidate(3, harvestApiData = $$props.harvestApiData);
+    		if ('harvestApiData' in $$props) $$invalidate(4, harvestApiData = $$props.harvestApiData);
     	};
 
     	$$self.$capture_state = () => ({
     		Button: Button_1,
     		taskToTagId,
     		projectNameToProjectId,
+    		TimeEntryRequestStatus,
     		EntryPreview,
     		TeamdeckHandler,
     		addToTeamdeck,
     		selectedDates,
+    		timeEntries,
     		TimeRangePicker,
     		onDestroy,
     		harvestApiData,
@@ -22758,11 +22772,12 @@ var app = (function () {
     		harvestDataFetched,
     		storeDateSubscriber,
     		fetchData,
-    		$selectedDates
+    		$selectedDates,
+    		$timeEntries
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ('harvestApiData' in $$props) $$invalidate(3, harvestApiData = $$props.harvestApiData);
+    		if ('harvestApiData' in $$props) $$invalidate(4, harvestApiData = $$props.harvestApiData);
     		if ('request' in $$props) $$invalidate(0, request = $$props.request);
     		if ('harvestDataFetched' in $$props) $$invalidate(1, harvestDataFetched = $$props.harvestDataFetched);
     	};
@@ -22771,13 +22786,13 @@ var app = (function () {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [request, harvestDataFetched, fetchData, harvestApiData];
+    	return [request, harvestDataFetched, $timeEntries, fetchData, harvestApiData];
     }
 
     class Harvest extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$7, create_fragment$9, safe_not_equal, { harvestApiData: 3 });
+    		init(this, options, instance$7, create_fragment$9, safe_not_equal, { harvestApiData: 4 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -22789,7 +22804,7 @@ var app = (function () {
     		const { ctx } = this.$$;
     		const props = options.props || {};
 
-    		if (/*harvestApiData*/ ctx[3] === undefined && !('harvestApiData' in props)) {
+    		if (/*harvestApiData*/ ctx[4] === undefined && !('harvestApiData' in props)) {
     			console.warn("<Harvest> was created without expected prop 'harvestApiData'");
     		}
     	}
