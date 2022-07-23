@@ -1,17 +1,14 @@
 <script lang="ts">
   import Button from '@smui/button';
-  import { taskToTagId, projectNameToProjectId } from '../helpers/harvest';
-  import { HarvestApiData, TimeEntry, TimeEntryRequestStatus } from './../models/harvest';
+  import { fetchHarvestData } from '../helpers/harvest';
   import EntryPreview from './entryPreview/EntryPreview.svelte';
   import { fetchClockifyData } from '../helpers/clockify';
   import TeamdeckHandler from './teamdeckHandler/TeamdeckHandler.svelte';
-  import { addToTeamdeck, selectedDates, timeEntries } from '../store';
+  import { availableProviders, selectedDates, timeEntries } from '../store';
   import TimeRangePicker from './TimeRangePicker.svelte';
   import { onDestroy } from 'svelte';
-  import { v4 as uuidv4 } from 'uuid';
-  export let harvestApiData: HarvestApiData;
-  let harvestRequest;
-  let clockifyRequest;
+
+  let requests;
   let harvestDataFetched = false;
 
   const storeDateSubscriber = selectedDates.subscribe(v => {
@@ -19,7 +16,7 @@
   });
 
   const fetchData = () => {
-    addToTeamdeck.update(() => false);
+    timeEntries.set([]);
     harvestDataFetched = true;
 
     const params = new URLSearchParams({
@@ -31,38 +28,15 @@
       end: $selectedDates.to.toISOString()
     });
 
-    // harvestRequest = fetchHarvestData(params, harvestApiData).then((res: TimeEntry[]) => {
-    //   return res;
-    // });
+    const reqArray = [];
+    if ($availableProviders.harvest) {
+      reqArray.push(fetchHarvestData(params));
+    }
+    if ($availableProviders.clockify) {
+      reqArray.push(fetchClockifyData(paramsClockify));
+    }
 
-    // harvestRequest = fetchClockifyData(paramsClockify).then((res: TimeEntry[]) => {
-    //   console.log(res);
-    //   return res;
-    // });
-
-    harvestRequest = fetch('https://api.harvestapp.com/api/v2/time_entries?' + params, {
-      headers: {
-        Authorization: `Bearer ${harvestApiData.token}`,
-        'Harvest-Account-Id': harvestApiData.accountId,
-        'User-Agent': 'Harvest API Example'
-      }
-    })
-      .then(res => res.json())
-      .then(res =>
-        res.time_entries.map(entry => ({
-          minutes: Math.round(entry.hours * 60),
-          project: projectNameToProjectId(entry.project.name),
-          name: entry.notes,
-          date: entry.spent_date,
-          tag: taskToTagId(entry.task.id),
-          status: TimeEntryRequestStatus.None,
-          id: uuidv4()
-        }))
-      )
-      .then((entries: TimeEntry[]) => {
-        timeEntries.set(entries);
-        return entries;
-      });
+    requests = Promise.all(reqArray);
   };
 
   onDestroy(storeDateSubscriber);
@@ -72,7 +46,7 @@
   <h3>Harvest</h3>
   <TimeRangePicker />
   {#if harvestDataFetched}
-    {#await harvestRequest}
+    {#await requests}
       <p>...Pobieram</p>
     {:then}
       <p>Pobrano {$timeEntries?.length} wpisów</p>

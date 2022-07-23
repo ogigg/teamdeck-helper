@@ -22,9 +22,7 @@
   setContext('clockifyAPI', form);
 
   const onSubmit = () => {
-    console.log(form);
     localStorage.setItem('clockifyAPI', JSON.stringify(form));
-    // push('/');
   };
 
   const removeSettings = () => {
@@ -33,6 +31,7 @@
   };
 
   const handleAPIKey = () => {
+    localStorage.setItem('clockifyAPI', JSON.stringify(form));
     workspaceRequest = getWorkspaces();
     workspaceRequest.then(res => (workspaces = res));
   };

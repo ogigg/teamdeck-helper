@@ -1,4 +1,6 @@
-import { HarvestTag, TeamdeckProject, TeamdeckTag, TimeEntry } from "../models/harvest";
+import { HarvestApiData, HarvestTag, TeamdeckProject, TeamdeckTag, TimeEntry, TimeEntryRequestStatus } from "../models/harvest";
+import { timeEntries } from "../store";
+import { v4 as uuidv4 } from 'uuid';
 
 export const projectNameToProjectId = (projectName) => {
     if (projectName.toLowerCase().includes("vicodo")) {
@@ -78,7 +80,7 @@ export const teamdeckProjectIdToProjectName = (projectId: TeamdeckProject) => {
               "weekend_booking": true,
               "holidays_booking": true,
               "vacations_booking": true,
-              "tags": [{id: entry.tag, dataType: "tag"}]
+              "tags": [{id: entry.tag, dataType: "tag"}]x
           }),
           "method": "POST",
           "mode": "cors",
@@ -88,7 +90,9 @@ export const teamdeckProjectIdToProjectName = (projectId: TeamdeckProject) => {
       `
   }
 
-export const fetchHarvestData = (params, harvestApiData) => fetch('https://api.harvestapp.com/api/v2/time_entries?' + params, {
+export const fetchHarvestData = (params) => {
+  const harvestApiData: HarvestApiData | null = JSON.parse(localStorage.getItem('harvestAPI'));
+  return fetch('https://api.harvestapp.com/api/v2/time_entries?' + params, {
   headers: {
     Authorization: `Bearer ${harvestApiData.token}`,
     'Harvest-Account-Id': harvestApiData.accountId,
@@ -97,11 +101,16 @@ export const fetchHarvestData = (params, harvestApiData) => fetch('https://api.h
 })
   .then(res => res.json())
   .then(res =>
-    res.time_entries.map(entry => ({
+    {
+      return res.time_entries.map(entry => ({
       minutes: Math.round(entry.hours * 60),
       project: projectNameToProjectId(entry.project.name),
       name: entry.notes,
       date: entry.spent_date,
-      tag: taskToTagId(entry.task.id)
-    }))
-  )
+      tag: taskToTagId(entry.task.id),
+      status: TimeEntryRequestStatus.None,
+      id: uuidv4()}))
+    }).then((entries: TimeEntry[]) => {
+      timeEntries.update(storeEntries => [...storeEntries, ...entries]);
+      return entries;
+    });}
