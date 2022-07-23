@@ -9,64 +9,21 @@
   import 'flatpickr/dist/flatpickr.css';
   import EntryPreview from './entryPreview/EntryPreview.svelte';
   import TeamdeckHandler from './teamdeckHandler/TeamdeckHandler.svelte';
-  import { addToTeamdeck } from '../store';
+  import { addToTeamdeck, selectedDates } from '../store';
+  import TimeRangePicker from './TimeRangePicker.svelte';
 
-  let choices = ['Dzisiaj', 'Wczoraj', 'Ostatnie 2 dni', 'Ostatni tydzień', 'Własny zakres'];
-  let selected = 'Dzisiaj';
   export let harvestApiData: HarvestApiData;
   let request;
   let harvestDataFetched = false;
-  let showDatePicker = false;
 
-  let value, formattedValue;
-  let selectedDates = [];
-
-  const options = {
-    enableTime: false,
-    mode: 'range',
-
-    onChange(selectedDateRange, dateStr) {
-      selectedDates = selectedDateRange;
-    }
-  };
-
-  function handleChange(event) {
-    const [selectedDates, dateStr] = event.detail;
-    console.log({ selectedDates, dateStr });
-  }
-
-  $: {
-    if (selected === 'Własny zakres') {
-      showDatePicker = true;
-    } else {
-      showDatePicker = false;
-    }
-    harvestDataFetched = false;
-  }
-
+  selectedDates.subscribe(e => {
+    console.log(e);
+  });
   const fetchData = () => {
     addToTeamdeck.update(() => false);
     harvestDataFetched = true;
     let from = new Date();
     let to = new Date();
-
-    if (selected === choices[0]) {
-      from = dayjs().startOf('day').add(dayjs().utcOffset(), 'minutes').toDate();
-    }
-    if (selected === choices[1]) {
-      from = dayjs().subtract(1, 'day').startOf('day').add(dayjs().utcOffset(), 'minutes').toDate();
-      to = dayjs().subtract(1, 'day').endOf('day').add(dayjs().utcOffset(), 'minutes').toDate();
-    }
-    if (selected === choices[2]) {
-      from = dayjs().subtract(2, 'day').startOf('day').add(dayjs().utcOffset(), 'minutes').toDate();
-    }
-    if (selected === choices[3]) {
-      from = dayjs().subtract(7, 'day').startOf('day').add(dayjs().utcOffset(), 'minutes').toDate();
-    }
-    if (selected === choices[4]) {
-      from = dayjs(selectedDates[0]).startOf('day').add(dayjs().utcOffset(), 'minutes').toDate();
-      to = dayjs(selectedDates[1]).endOf('day').add(dayjs().utcOffset(), 'minutes').toDate();
-    }
 
     const params = new URLSearchParams({
       from: from.toISOString(),
@@ -98,15 +55,7 @@
 
 <div class="section-wrapper">
   <h3>Harvest</h3>
-  <SegmentedButton segments={choices} let:segment singleSelect bind:selected>
-    <Segment {segment}>
-      <Label>{segment}</Label>
-    </Segment>
-  </SegmentedButton>
-  {#if showDatePicker}
-    <span>Wybierz przedział:</span>
-    <Flatpickr {options} bind:value bind:formattedValue on:change={handleChange} name="date" />
-  {/if}
+  <TimeRangePicker />
   {#if harvestDataFetched}
     {#await request}
       <p>...Pobieram</p>

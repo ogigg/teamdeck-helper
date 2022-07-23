@@ -7,3 +7,8 @@ export const harvestData: Writable<HarvestApiData> = writable({
 });
 
 export const addToTeamdeck: Writable<boolean> = writable(false);
+
+export const selectedDates: Writable<{from: Date, to: Date}> = writable({
+    from: new Date(),
+    to: new Date()
+});
