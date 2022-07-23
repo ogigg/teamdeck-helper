@@ -16,6 +16,7 @@ export interface TimeEntry {
     date:  string;
     tag:  string;
     status: TimeEntryRequestStatus;
+    id: string;
 }
 
 export enum TeamdeckProject {

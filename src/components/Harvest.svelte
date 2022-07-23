@@ -7,7 +7,7 @@
   import { addToTeamdeck, selectedDates, timeEntries } from '../store';
   import TimeRangePicker from './TimeRangePicker.svelte';
   import { onDestroy } from 'svelte';
-
+  import { v4 as uuidv4 } from 'uuid';
   export let harvestApiData: HarvestApiData;
   let request;
   let harvestDataFetched = false;
@@ -40,7 +40,8 @@
           name: entry.notes,
           date: entry.spent_date,
           tag: taskToTagId(entry.task.id),
-          status: TimeEntryRequestStatus.None
+          status: TimeEntryRequestStatus.None,
+          id: uuidv4()
         }))
       )
       .then((entries: TimeEntry[]) => {
@@ -63,7 +64,7 @@
       {#each $timeEntries as timeEntry}
         <EntryPreview entry={timeEntry} />
       {/each}
-      <TeamdeckHandler timeEntries={$timeEntries} />
+      <TeamdeckHandler />
     {:catch error}
       <p style="color: red">{error.message}</p>
     {/await}

@@ -1,37 +1,18 @@
 <script lang="ts">
-  import type { TimeEntry } from './../../models/harvest';
+  import { TimeEntry, TimeEntryRequestStatus } from './../../models/harvest';
   import Card from '@smui/card';
   import { teamdeckProjectIdToProjectName } from '../../helpers/harvest';
-  import { addToTeamdeck } from '../../store';
   import CircularProgress from '@smui/circular-progress';
-  import { addTimeEntryToTeamdeck } from '../../helpers/teamdeck';
   import CheckCircle from 'svelte-material-icons/CheckCircle.svelte';
   import CloseCircle from 'svelte-material-icons/CloseCircle.svelte';
-  import { onDestroy } from 'svelte';
 
   export let entry: TimeEntry;
-
-  let spinner,
-    success,
-    error = false;
-
-  const storelistner = addToTeamdeck.subscribe(async shouldAddToTeamdeck => {
-    if (shouldAddToTeamdeck) {
-      spinner = true;
-      const res = await addTimeEntryToTeamdeck(entry);
-      spinner = false;
-      success = res.success;
-      error = res.error;
-    }
-  });
 
   const minutesToHHMM = (totalMinutes: number): string => {
     const hours = Math.floor(totalMinutes / 60);
     const minutes = totalMinutes % 60;
     return `${hours}h ${minutes}m`;
   };
-
-  onDestroy(storelistner);
 </script>
 
 <Card padded>
@@ -43,13 +24,13 @@
       <span>{minutesToHHMM(entry.minutes)}</span>
     </div>
     <div class="status">
-      {#if spinner}
+      {#if entry.status === TimeEntryRequestStatus.Loading}
         <CircularProgress style="height: 32px; width: 32px;" indeterminate />
       {/if}
-      {#if success}
+      {#if entry.status === TimeEntryRequestStatus.Success}
         <CheckCircle color="#339933" size="32px" />
       {/if}
-      {#if error}
+      {#if entry.status === TimeEntryRequestStatus.Error}
         <CloseCircle color="#cc0000" size="32px" />
       {/if}
     </div>
