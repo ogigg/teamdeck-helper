@@ -3,12 +3,20 @@ export interface HarvestApiData {
     accountId: string;
 }
 
+export enum TimeEntryRequestStatus {
+    None,
+    Loading,
+    Success,
+    Error
+}
 export interface TimeEntry {
     minutes: number;
     project: TeamdeckProject;
     name:  string;
     date:  string;
     tag:  string;
+    status: TimeEntryRequestStatus;
+    id: string;
 }
 
 export enum TeamdeckProject {
