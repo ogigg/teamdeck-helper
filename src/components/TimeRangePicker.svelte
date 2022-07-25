@@ -1,6 +1,7 @@
 <script lang="ts">
   import SegmentedButton, { Label, Segment } from '@smui/segmented-button';
   import Flatpickr from 'svelte-flatpickr';
+  import 'flatpickr/dist/flatpickr.css';
   import { AVAILABLE_TIME_RANGES, TimeRange } from '../models/timeRange';
   import { selectedDates } from '../store';
   import dayjs from 'dayjs';
