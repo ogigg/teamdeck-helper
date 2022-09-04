@@ -19,8 +19,8 @@
     const [[from, to]] = event.detail;
     if (from && to) {
       selectedDates.update(() => ({
-        from,
-        to
+        from: dayjs(from).add(dayjs().utcOffset(), 'minutes').toDate(),
+        to: dayjs(to).add(dayjs().utcOffset(), 'minutes').toDate()
       }));
     }
   }
