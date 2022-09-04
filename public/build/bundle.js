@@ -33464,7 +33464,7 @@ var app = (function () {
     			span.textContent = "Wybierz przedział:";
     			t1 = space();
     			create_component(flatpickr.$$.fragment);
-    			add_location(span, file$9, 80, 2, 2369);
+    			add_location(span, file$9, 80, 2, 2483);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -33649,7 +33649,10 @@ var app = (function () {
     		const [[from, to]] = event.detail;
 
     		if (from && to) {
-    			selectedDates.update(() => ({ from, to }));
+    			selectedDates.update(() => ({
+    				from: dayjs_min(from).add(dayjs_min().utcOffset(), 'minutes').toDate(),
+    				to: dayjs_min(to).add(dayjs_min().utcOffset(), 'minutes').toDate()
+    			}));
     		}
     	}
 
