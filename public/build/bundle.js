@@ -14905,7 +14905,7 @@ var app = (function () {
     	}
     }
 
-    const TEAMDECK_API = 'https://teamdeck-tracker-api-staging.herokuapp.com/';
+    const TEAMDECK_API = 'https://teamdeck-api-moodup.fly.dev/';
     const CLOCKIFY_API = 'https://api.clockify.me/api/v1/';
 
     /**
